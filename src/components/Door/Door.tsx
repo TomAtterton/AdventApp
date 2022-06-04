@@ -8,13 +8,15 @@ import { colors } from '../../themes';
 
 interface Props {
   title: string;
+  message: string;
+  gif: string;
   index: number;
   isActive: boolean;
 }
 
 const colorArray = [colors.advent4, colors.advent1, colors.advent2, colors.advent3];
 
-const Door = ({ title, index, isActive }: Props) => {
+const Door = ({ title, message, gif, index, isActive }: Props) => {
   const navigation = useNavigation();
 
   const backgroundColor = useMemo(() => colorArray[index % 4], [index]);
@@ -22,7 +24,7 @@ const Door = ({ title, index, isActive }: Props) => {
   const onNavigate = useCallback(() => {
     navigation.navigate({
       name: Pages.DETAILS,
-      params: { title, color: backgroundColor, index },
+      params: { title, message, gif },
     });
   }, [backgroundColor, index, navigation, title]);
 

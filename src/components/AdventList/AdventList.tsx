@@ -1,16 +1,18 @@
 import React, { memo, ReactNode, useCallback } from 'react';
 import { FlatList } from 'react-native';
 import styles from './adventList.style';
-import adventConfig from '../../config/adventConfig';
+import adventConfig, { advent } from '../../config/adventConfig';
 import Door from '../Door';
 
 interface Props {
-  data: ReactNode[];
+  data: advent[];
 }
 
 const AdventList = ({ data = adventConfig }: Props) => {
   const onRenderItem = useCallback(
-    ({ item, index }) => <Door title={item.day} index={index} isActive={true} />,
+    ({ item, index }) => (
+      <Door title={item.day} index={index} message={item.message} gif={item.gif} isActive={true} />
+    ),
     [],
   );
 
