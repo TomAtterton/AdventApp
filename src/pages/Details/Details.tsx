@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './details.style';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text } from 'react-native';
-import ImageView from '../../components/ImageView';
+import { Image, Text, View } from 'react-native';
+import { BlurView } from 'expo-blur';
 
 interface Props {
   route: {
@@ -14,17 +13,22 @@ interface Props {
   };
 }
 
+const testDuck = 'https://media.istockphoto.com/photos/mallard-duck-on-white-background-picture-id464988959'
+const testGif = 'https://media.giphy.com/media/BzyTuYCmvSORqs1ABM/giphy.gif'
+
 const Details = ({
   route: {
     params: { title, message, gif = 'https://media.giphy.com/media/BzyTuYCmvSORqs1ABM/giphy.gif' },
   },
 }: Props) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <ImageView uri={gif} />
-      <Text style={styles.message}>{message}</Text>
-    </SafeAreaView>
+      <Image style={styles.image} source={{ uri: testGif }} />
+        <BlurView style={styles.messageContainer}>
+          <Text style={styles.message}>{message}</Text>
+        </BlurView>
+    </View>
   );
 };
 
