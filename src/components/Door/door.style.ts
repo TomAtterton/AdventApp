@@ -6,9 +6,6 @@ export const DOOR_HEIGHT = metrics.screenWidth / 3;
 export const DOOR_WIDTH = metrics.screenWidth / 2;
 const DOOR_MARGIN = 32;
 
-export const ICON_HEIGHT = 60;
-export const ICON_WIDTH = 60;
-
 export default StyleSheet.create({
   container: {
     height: DOOR_HEIGHT,

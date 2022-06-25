@@ -13,8 +13,9 @@ interface Props {
   };
 }
 
-const testDuck = 'https://media.istockphoto.com/photos/mallard-duck-on-white-background-picture-id464988959'
-const testGif = 'https://media.giphy.com/media/BzyTuYCmvSORqs1ABM/giphy.gif'
+const testDuck =
+  'https://media.istockphoto.com/photos/mallard-duck-on-white-background-picture-id464988959';
+const testGif = 'https://media.giphy.com/media/BzyTuYCmvSORqs1ABM/giphy.gif';
 
 const Details = ({
   route: {
@@ -23,11 +24,11 @@ const Details = ({
 }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
       <Image style={styles.image} source={{ uri: testGif }} />
-        <BlurView style={styles.messageContainer}>
-          <Text style={styles.message}>{message}</Text>
-        </BlurView>
+      <Text style={styles.title}>{title}</Text>
+      <BlurView style={styles.messageContainer}>
+        <Text style={styles.message}>{message}</Text>
+      </BlurView>
     </View>
   );
 };
