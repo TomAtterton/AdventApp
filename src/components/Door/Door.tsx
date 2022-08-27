@@ -9,24 +9,26 @@ import { colors } from '../../themes';
 interface Props {
   title: string;
   message: string;
-  gif: string;
+  value: string;
   index: number;
   isActive: boolean;
+  id?: string;
 }
 
 const colorArray = [colors.advent4, colors.advent1, colors.advent2, colors.advent3];
 
-const Door = ({ title, message, gif, index, isActive }: Props) => {
+const Door = ({ title, message, value, index, isActive, id, type }: Props) => {
   const navigation = useNavigation();
 
   const backgroundColor = useMemo(() => colorArray[index % 4], [index]);
 
   const onNavigate = useCallback(() => {
+    console.log('Value', value)
     navigation.navigate({
-      name: Pages.DETAILS,
-      params: { title, message, gif },
+      name: !!id ? Pages.EDIT_DETAILS : Pages.DETAILS,
+      params: { title, message, value, id, type },
     });
-  }, [backgroundColor, index, navigation, title]);
+  }, [backgroundColor, index, navigation, title, id, message, value]);
 
   return (
     <Button disabled={!isActive} onPress={onNavigate}>

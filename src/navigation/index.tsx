@@ -14,7 +14,7 @@ const defaultOptions = {
 
 const MainNavigation = () => (
   // @ts-ignore
-  <Stack.Navigator initialRouteName={Pages.HOME} screenOptions={{ presentation: 'modal' }}>
+  <Stack.Navigator initialRouteName={Pages.HOME}>
     <Stack.Screen
       name={Pages.HOME}
       component={routes[Pages.HOME]}
@@ -26,8 +26,18 @@ const MainNavigation = () => (
       options={{ ...defaultOptions }}
     />
     <Stack.Screen
+      name={Pages.EDIT_DETAILS}
+      component={routes[Pages.EDIT_DETAILS]}
+      options={{ ...defaultOptions }}
+    />
+    <Stack.Screen
       name={Pages.SETTINGS}
       component={routes[Pages.SETTINGS]}
+      options={{ ...defaultOptions }}
+    />
+    <Stack.Screen
+      name={Pages.CREATE_CALENDAR}
+      component={routes[Pages.CREATE_CALENDAR]}
       options={{ ...defaultOptions }}
     />
   </Stack.Navigator>

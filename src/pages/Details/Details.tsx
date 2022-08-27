@@ -19,7 +19,7 @@ const testGif = 'https://media.giphy.com/media/BzyTuYCmvSORqs1ABM/giphy.gif';
 
 const Details = ({
   route: {
-    params: { title, message, gif = 'https://media.giphy.com/media/BzyTuYCmvSORqs1ABM/giphy.gif' },
+    params: { title, message, value = 'https://media.giphy.com/media/BzyTuYCmvSORqs1ABM/giphy.gif' },
   },
 }: Props) => {
   return (
