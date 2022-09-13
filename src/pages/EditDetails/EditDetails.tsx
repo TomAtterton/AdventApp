@@ -11,7 +11,7 @@ import { useAppDispatch } from '../../utils/hooks';
 import { onUpdateCalendarItem } from '../../store/calendarSlice';
 import { useNavigation } from '@react-navigation/native';
 
-const ContentButton = ({ title, onPress }: { title: string; onPress: () => {} }) => {
+export const ContentButton = ({ title, onPress }: { title: string; onPress: () => {} }) => {
   return (
     <TouchableOpacity
       style={{
