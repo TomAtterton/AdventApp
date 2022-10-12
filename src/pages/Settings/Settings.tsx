@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './settings.style';
 import { Linking, Text, TouchableOpacity, View } from 'react-native';
 import MenuItem from './MenuItem';
@@ -8,24 +8,25 @@ import DialogTextInput from '../../components/DialogTextInput';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { onAddCalendar } from '../../store/calendarSlice';
 import uuid from 'react-native-uuid';
-import RNShare from 'react-native-share';
-import DocumentPicker, {
-  DirectoryPickerResponse,
-  DocumentPickerResponse,
-  isInProgress,
-  types,
-} from 'react-native-document-picker';
-import { onShareFile } from '../../utils/shareUtils';
+
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {fetchCalendars} from "../../utils/firebaseUtils";
 
 interface Props {}
 
 const Settings = ({}: Props) => {
-  const { navigate } = useNavigation();
+  const { navigate, goBack } = useNavigation();
 
   const [showDialog, setShowDialog] = useState(false);
 
   const dispatch = useAppDispatch();
   const createdCalendars = useAppSelector(state => state.calendar.createdCalendars);
+
+
+  useEffect(()=>{
+      fetchCalendars()
+
+  },[])
 
   const onNavigateToCalendar = useCallback(
     (id, name) =>
@@ -47,15 +48,14 @@ const Settings = ({}: Props) => {
     },
     [navigate],
   );
-  console.log('This is a testy test', createdCalendars);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{'Settings'}</Text>
       <View style={styles.menuItemContainer}>
         <MenuItem title={'Create calendar'} onPress={() => setShowDialog(true)} />
+        <Text style={styles.title}>{'Select Calendar to edit'}</Text>
         {createdCalendars &&
           Object.values(createdCalendars).map(calendar => {
-            console.log('Calendar', calendar);
             const { id, name } = calendar;
             return (
               <TouchableOpacity onPress={() => onNavigateToCalendar(id, name)}>
@@ -63,35 +63,14 @@ const Settings = ({}: Props) => {
               </TouchableOpacity>
             );
           })}
-        <MenuItem title={'Share calendar'} onPress={() => onShareFile(createdCalendars)} />
-        <MenuItem
-          title={'Import calendar from files'}
-          onPress={async () => {
-            const pickerResult = await DocumentPicker.pickSingle({
-              presentationStyle: 'fullScreen',
-              type: [DocumentPicker.types.plainText],
-              mode: 'import',
-              copyTo: 'cachesDirectory',
-            });
-              console.log('This is the result', pickerResult)
-          }}
-        />
-        <MenuItem
-          title={'Import calendar from Text'}
-          onPress={async () => {
-            const pickerResult = await DocumentPicker.pickSingle({
-              presentationStyle: 'fullScreen',
-              copyTo: 'cachesDirectory',
-            });
-          }}
-        />
+        <MenuItem title={'Go Back'} onPress={goBack} />
       </View>
       <DialogTextInput
         isVisible={showDialog}
         onHandleOk={onCreateCalendar}
         onHandleCancel={() => setShowDialog(false)}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

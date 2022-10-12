@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { advent, defaultAdvent, emptyAdvent } from '../config/adventConfig';
+import { addCalendar, updateCalendar } from '../utils/firebaseUtils';
 
 interface CalendarState {
   currentCalendar: advent[];
@@ -22,17 +23,38 @@ export const calendarSlice = createSlice({
   initialState,
   reducers: {
     onAddCalendar: (state, { payload: { name, id } }) => {
+      addCalendar({
+        id,
+        name,
+        advent: emptyAdvent,
+      }).then(r => console.log('r', r));
+
       state.createdCalendars = {
         ...state.createdCalendars,
         [id]: { id, name, data: emptyAdvent },
       };
     },
     onUpdateCalendarItem: (state, { payload: { id, day, type, value, message } }) => {
-      state.createdCalendars[id].data[day - 1] = {
+      const dayValue = day - 1;
+
+      updateCalendar({
+        id,
         day,
         message,
         type,
         value,
+      });
+      state.createdCalendars[id].data[dayValue] = {
+        day,
+        message,
+        type,
+        value,
+      };
+    },
+    onSyncCalendar: (state, { payload: { id, data } }) => {
+      state.createdCalendars = {
+        ...state.createdCalendars,
+        [id]: data,
       };
     },
   },
