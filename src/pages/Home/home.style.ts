@@ -6,10 +6,4 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: colors.homeBackground,
   },
-  settings: {
-    alignSelf: 'flex-end',
-    paddingRight: 16,
-    height: 50,
-    justifyContent: 'center',
-  },
 });

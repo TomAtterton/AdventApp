@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './settings.style';
 import { Linking, Text, TouchableOpacity, View } from 'react-native';
 import MenuItem from './MenuItem';
@@ -10,7 +10,7 @@ import { onAddCalendar } from '../../store/calendarSlice';
 import uuid from 'react-native-uuid';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {fetchCalendars} from "../../utils/firebaseUtils";
+import { fetchCalendars } from '../../utils/firebaseUtils';
 
 interface Props {}
 
@@ -22,20 +22,16 @@ const Settings = ({}: Props) => {
   const dispatch = useAppDispatch();
   const createdCalendars = useAppSelector(state => state.calendar.createdCalendars);
 
+  useEffect(() => {
+    fetchCalendars();
+  }, []);
 
-  useEffect(()=>{
-      fetchCalendars()
-
-  },[])
-
-  const onNavigateToCalendar = useCallback(
-    (id, name) =>
-      navigate({
-        name: Pages.CREATE_CALENDAR,
-        params: { id, name },
-      }),
-    [],
-  );
+  const onNavigateToCalendar = useCallback((id: string, name: string) => {
+    navigate({
+      name: Pages.CREATE_CALENDAR,
+      params: { id, name },
+    });
+  }, []);
 
   const onCreateCalendar = useCallback(
     async (name: string) => {
@@ -50,7 +46,6 @@ const Settings = ({}: Props) => {
   );
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>{'Settings'}</Text>
       <View style={styles.menuItemContainer}>
         <MenuItem title={'Create calendar'} onPress={() => setShowDialog(true)} />
         <Text style={styles.title}>{'Select Calendar to edit'}</Text>
