@@ -1,16 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from './settings.style';
-import { Linking, Text, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import MenuItem from './MenuItem';
 import { useNavigation } from '@react-navigation/native';
 import Pages from '../../enum/Pages';
 import DialogTextInput from '../../components/DialogTextInput';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
-import { onAddCalendar } from '../../store/calendarSlice';
+import { onAddCalendar, onSelectCalendar } from '../../store/calendarSlice';
 import uuid from 'react-native-uuid';
+import Collapsible from 'react-native-collapsible';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { fetchCalendars } from '../../utils/firebaseUtils';
+import CalendarList from './CalendarList/CalendarList';
 
 interface Props {}
 
@@ -44,21 +46,46 @@ const Settings = ({}: Props) => {
     },
     [navigate],
   );
+
+  const [showEditCalendars, setShowEditCalendars] = useState(false);
+  const [showSelectCalendars, setShowSelectCalendars] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.menuItemContainer}>
-        <MenuItem title={'Create calendar'} onPress={() => setShowDialog(true)} />
-        <Text style={styles.title}>{'Select Calendar to edit'}</Text>
-        {createdCalendars &&
-          Object.values(createdCalendars).map(calendar => {
-            const { id, name } = calendar;
-            return (
-              <TouchableOpacity onPress={() => onNavigateToCalendar(id, name)}>
-                <Text style={{ fontSize: 28, color: 'black' }}>{name}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        <MenuItem title={'Go Back'} onPress={goBack} />
+        <MenuItem
+          title={'Create calendar'}
+          onPress={() => setShowDialog(true)}
+          iconName={'right'}
+        />
+        <View style={{ height: 16 }} />
+        <MenuItem
+          title={'Edit calendar'}
+          onPress={() => setShowEditCalendars(!showEditCalendars)}
+          iconName={!showEditCalendars ? 'down' : 'up'}
+        />
+        <Collapsible collapsed={!showEditCalendars}>
+          <CalendarList
+            calendars={createdCalendars}
+            onPress={(id, name) => onNavigateToCalendar(id, name)}
+          />
+        </Collapsible>
+        <View style={{ height: 16 }} />
+        <MenuItem
+          title={'Select calendar'}
+          onPress={() => setShowSelectCalendars(!showSelectCalendars)}
+          iconName={!showSelectCalendars ? 'down' : 'up'}
+        />
+        <Collapsible collapsed={!showSelectCalendars}>
+          <CalendarList
+            calendars={createdCalendars}
+            onPress={id => {
+              dispatch(onSelectCalendar({ id }));
+              goBack();
+            }}
+          />
+        </Collapsible>
+        <View style={{ height: 16 }} />
       </View>
       <DialogTextInput
         isVisible={showDialog}

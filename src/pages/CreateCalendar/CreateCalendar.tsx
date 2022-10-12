@@ -26,7 +26,6 @@ const CreateCalendar = ({ navigation, route }: Props) => {
     <SafeAreaView style={styles.container}>
       <Text style={{ textAlign: 'center', fontSize: 30 }}>{name}</Text>
       <AdventList data={currentCalendar} id={id} />
-      <Button title={'Back'} onPress={() => navigation.goBack()} />
     </SafeAreaView>
   );
 };

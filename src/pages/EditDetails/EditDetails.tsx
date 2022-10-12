@@ -79,7 +79,7 @@ const EditDetails = ({
   useEffect(() => {
     const handler = (e: any) => {
       const giphyMedia = e.media as GiphyMedia;
-        console.log('GiphyMedia', giphyMedia);
+      console.log('GiphyMedia', giphyMedia);
       setMedia({ url: giphyMedia.url, type: CONTENT_TYPE.GIF });
       GiphyDialog.hide();
     };
@@ -173,13 +173,11 @@ const EditDetails = ({
               />
               <ContentButton title={'Show Preview'} onPress={() => setShowPreview(true)} />
               <ContentButton title={'Save'} onPress={onSave} />
-              <ContentButton title={'Go Back'} onPress={navigation.goBack} />
             </View>
           ) : (
             <View style={{ flex: 1, justifyContent: 'center', marginHorizontal: 24 }}>
               <ContentButton title={'Choose Image'} onPress={onChooseImage} />
               <ContentButton title={'Choose Gif'} onPress={GiphyDialog.show} />
-              <ContentButton title={'Go Back'} onPress={navigation.goBack} />
             </View>
           )}
         </>

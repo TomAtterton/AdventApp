@@ -57,9 +57,12 @@ export const calendarSlice = createSlice({
         [id]: data,
       };
     },
+    onSelectCalendar: (state, { payload: { id } }) => {
+      state.currentCalendar = state.createdCalendars[id].data;
+    },
   },
 });
 
-export const { onAddCalendar, onUpdateCalendarItem } = calendarSlice.actions;
+export const { onAddCalendar, onUpdateCalendarItem, onSelectCalendar } = calendarSlice.actions;
 
 export default calendarSlice.reducer;
