@@ -29,7 +29,7 @@ const MainNavigation = () => {
         component={routes[Pages.HOME]}
         options={{
           ...defaultOptions,
-          title: 'Home',
+          title: '',
           headerRight: navigation => {
             console.log('navigation', navigation);
             return (
