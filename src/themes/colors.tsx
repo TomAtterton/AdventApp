@@ -4,7 +4,8 @@ const colors = {
   advent3: '#FCD29F',
   advent4: '#C589E8',
   background: '#C7CEEA',
-  homeBackground: '#C7CEEA',
+  // homeBackground: '#C7CEEA',
+  homeBackground: 'black',
   white: '#CFDAC8',
   black: '#000000',
 };

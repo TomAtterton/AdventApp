@@ -44,8 +44,11 @@ const MainNavigation = () => {
         name={Pages.DETAILS}
         component={routes[Pages.DETAILS]}
         options={{
-          ...defaultOptions,
           headerShown: false,
+
+          animation: 'fade',
+          ...defaultOptions,
+
         }}
       />
       <Stack.Screen
