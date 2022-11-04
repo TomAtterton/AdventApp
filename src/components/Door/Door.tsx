@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import styles, { DOOR_HEIGHT, DOOR_WIDTH } from './door.style';
 import { useNavigation } from '@react-navigation/native';
@@ -67,6 +67,7 @@ const Door = ({ title, message, value, index, isActive, id, type }: Props) => {
   return (
     <View>
       <TouchableOpacity
+        disabled={!isActive}
         style={styles.container}
         onPress={() => (!isOpened ? onAnimateDoor(false) : onNavigate())}>
         <View style={styles.innerContainer}>
@@ -92,4 +93,4 @@ const Door = ({ title, message, value, index, isActive, id, type }: Props) => {
   );
 };
 
-export default Door;
+export default memo(Door);

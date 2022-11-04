@@ -10,7 +10,7 @@ const Home = ({}) => {
   const currentCalendar = useAppSelector(state => state.calendar.currentCalendar || defaultAdvent);
   return (
     <SafeAreaView style={styles.container}>
-      {/*<SnowFall />*/}
+      <SnowFall />
       <AdventList data={currentCalendar} />
     </SafeAreaView>
   );

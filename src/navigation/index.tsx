@@ -17,6 +17,7 @@ const defaultOptions = {
     backgroundColor: colors.homeBackground,
   },
   headerShadowVisible: false,
+  headerShown: false,
 };
 
 const MainNavigation = () => {
@@ -44,11 +45,8 @@ const MainNavigation = () => {
         name={Pages.DETAILS}
         component={routes[Pages.DETAILS]}
         options={{
-          headerShown: false,
-
           animation: 'fade',
           ...defaultOptions,
-
         }}
       />
       <Stack.Screen
