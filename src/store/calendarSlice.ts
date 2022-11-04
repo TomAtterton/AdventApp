@@ -3,6 +3,7 @@ import { advent, defaultAdvent, emptyAdvent } from '../config/adventConfig';
 import { addCalendar, updateCalendar } from '../utils/firebaseUtils';
 
 interface CalendarState {
+  currentCalendarId?: string;
   currentCalendar: advent[];
   createdCalendars: {
     [key: string]: {
@@ -14,6 +15,7 @@ interface CalendarState {
 }
 
 const initialState: CalendarState = {
+  currentCalendarId: undefined,
   currentCalendar: defaultAdvent,
   createdCalendars: {},
 };
@@ -52,18 +54,17 @@ export const calendarSlice = createSlice({
         value,
       };
     },
-    onSyncCalendar: (state, { payload: { id, data } }) => {
-      state.createdCalendars = {
-        ...state.createdCalendars,
-        [id]: data,
-      };
+    onSyncCalendar: (state, { payload: { data } }) => {
+      state.currentCalendar = data;
     },
     onSelectCalendar: (state, { payload: { id } }) => {
+      state.currentCalendarId = id;
       state.currentCalendar = state.createdCalendars[id].data;
     },
   },
 });
 
-export const { onAddCalendar, onUpdateCalendarItem, onSelectCalendar } = calendarSlice.actions;
+export const { onAddCalendar, onUpdateCalendarItem, onSelectCalendar, onSyncCalendar } =
+  calendarSlice.actions;
 
 export default calendarSlice.reducer;

@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import { advent } from '../config/adventConfig';
 
-const calendarsCollection = firestore().collection('calendars');
+export const calendarsCollection = firestore().collection('calendars');
 const infoCollection = firestore().collection('info');
 
 export const fetchCalendars = async () => {
