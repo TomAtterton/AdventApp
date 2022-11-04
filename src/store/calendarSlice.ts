@@ -44,6 +44,7 @@ export const calendarSlice = createSlice({
         type,
         value,
       });
+
       state.createdCalendars[id].data[dayValue] = {
         day,
         message,

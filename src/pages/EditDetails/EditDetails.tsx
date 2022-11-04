@@ -115,9 +115,9 @@ const EditDetails = ({
       onUpdateCalendarItem({
         id,
         day: title,
-        type: undefined,
-        value: undefined,
-        message: undefined,
+        type: null,
+        value: null,
+        message: null,
       }),
     );
     setMedia(null);
