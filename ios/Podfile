@@ -1,7 +1,7 @@
 require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
 require File.join(File.dirname(`node --print "require.resolve('@react-native-community/cli-platform-ios/package.json')"`), "native_modules")
-#$RNFirebaseAsStaticFramework = true
+$RNFirebaseAsStaticFramework = true
 
 require 'json'
 podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties.json'))) rescue {}
@@ -14,10 +14,10 @@ target 'AdventApp' do
   use_expo_modules!
   config = use_native_modules!
 
-  use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
+#  use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
 #use_modular_headers!
 
-#  use_frameworks! :linkage => :static
+#  use_frameworks!
   # Flags change depending on the env values.
   flags = get_default_flags()
 
@@ -28,13 +28,15 @@ target 'AdventApp' do
     # An absolute path to your application root.
     :app_path => "#{Dir.pwd}/.."
   )
+  
+  use_frameworks! :linkage => :static
 # @generated begin expo-community-flipper - expo prebuild (DO NOT MODIFY) sync-4148bbf2c492bb2bc64c15cf174a4e84360c08a5
 
       # Flipper support successfully added via expo config plugin
       # https://www.npmjs.com/package/expo-community-flipper
-      if !ENV['FLIPPER_DISABLE']
-        use_flipper!({'Flipper' => '0.123.0', 'Flipper-Folly' => '2.6.10', 'Flipper-RSocket' => '1.4.3', 'Flipper-DoubleConversion' => '3.1.7', 'Flipper-Glog' => '0.3.9', 'Flipper-PeerTalk' => '0.0.4'})
-      end
+#      if !ENV['FLIPPER_DISABLE']
+#        use_flipper!({'Flipper' => '0.123.0', 'Flipper-Folly' => '2.6.10', 'Flipper-RSocket' => '1.4.3', 'Flipper-DoubleConversion' => '3.1.7', 'Flipper-Glog' => '0.3.9', 'Flipper-PeerTalk' => '0.0.4'})
+#      end
     
 # @generated end expo-community-flipper
 
@@ -50,9 +52,9 @@ target 'AdventApp' do
 
       # Flipper support successfully added via expo config plugin
       # https://www.npmjs.com/package/expo-community-flipper
-      if !ENV['FLIPPER_DISABLE']
-        flipper_post_install(installer)
-      end
+#      if !ENV['FLIPPER_DISABLE']
+#        flipper_post_install(installer)
+#      end
     
 # @generated end expo-community-flipper-post-install
     react_native_post_install(installer)
