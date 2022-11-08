@@ -64,12 +64,14 @@ const Door = ({ title, message, value, index, isActive, id, type }: Props) => {
     });
   }, [backgroundColor, index, navigation, title, id, message, value]);
 
+  const onDoorPress = useCallback(() => {
+    // hapticFeedback();
+    !isOpened ? onAnimateDoor(false) : onNavigate();
+  }, [isOpened, onAnimateDoor, onNavigate]);
+
   return (
     <View>
-      <TouchableOpacity
-        disabled={!isActive}
-        style={styles.container}
-        onPress={() => (!isOpened ? onAnimateDoor(false) : onNavigate())}>
+      <TouchableOpacity disabled={!isActive} style={styles.container} onPress={onDoorPress}>
         <View style={styles.innerContainer}>
           {value && isOpened && <Image style={styles.image} source={{ uri: value }} />}
           <BlurView tint={'dark'} style={styles.tintView} />

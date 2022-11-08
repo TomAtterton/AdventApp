@@ -8,6 +8,13 @@ export const DOOR_WIDTH = metrics.screenWidth / 2 - DOOR_MARGIN * 2;
 
 export default StyleSheet.create({
   container: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.46,
+    shadowRadius: 11.14,
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
     margin: DOOR_MARGIN,
@@ -42,13 +49,13 @@ export default StyleSheet.create({
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
   },
-  innerContentLeft:{
+  innerContentLeft: {
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH / 2,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
   },
-  innerContentRight:{
+  innerContentRight: {
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH / 2,
     borderTopRightRadius: 20,

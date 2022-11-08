@@ -14,7 +14,7 @@ interface Props {
 
 const keyExtractor = (item: advent, index: number) => `${item?.day} + ${index}`;
 
-const AdventList = ({ data, id }: Props) => {
+const AdventList = ({ style, data, id }: Props) => {
   const currentAppState = useAppState();
 
   const [currentDay, setCurrentDay] = useState(currentDayOfMonth());
@@ -42,8 +42,9 @@ const AdventList = ({ data, id }: Props) => {
 
   return (
     <FlatList
+      showsVerticalScrollIndicator={false}
       keyExtractor={keyExtractor}
-      style={styles.container}
+      style={[styles.container, style]}
       numColumns={2}
       data={data}
       renderItem={onRenderItem}
