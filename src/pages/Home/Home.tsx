@@ -15,7 +15,7 @@ const Home = ({}) => {
     <View style={[styles.container, { paddingTop: 0 }]}>
       <StatusBar barStyle={'light-content'} />
       <Image
-        source={require('../../assets/images/night_mountain.png')}
+        source={require('../../assets/images/snow_mountain.png')}
         style={{
           position: 'absolute',
           top: 0,
