@@ -5,13 +5,20 @@ import { Provider } from 'react-redux';
 import { persistor, store } from './src/store';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { PersistGate } from 'redux-persist/integration/react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { setupGiphy } from './src/utils/giphyUtils';
 import AppProvider from './src/providers';
+import SplashScreen from './src/pages/SplashScreen/SplashScreen';
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   useEffect(() => {
     setupGiphy();
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
   return (
@@ -20,9 +27,7 @@ export default function App() {
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <NavigationContainer>
-              <AppProvider>
-                <MainNavigation />
-              </AppProvider>
+              <AppProvider>{isLoading ? <SplashScreen /> : <MainNavigation />}</AppProvider>
             </NavigationContainer>
           </PersistGate>
         </Provider>

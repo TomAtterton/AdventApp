@@ -5,8 +5,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   title: {
     color: 'white',
@@ -22,8 +20,11 @@ export default StyleSheet.create({
     right: 16,
     bottom: 32,
     paddingHorizontal: 16,
-    paddingVertical: 4,
+    paddingVertical: 16,
     borderRadius: 20,
+    // height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   message: {
     textAlign: 'center',
@@ -35,5 +36,14 @@ export default StyleSheet.create({
     width: metrics.screenWidth,
     resizeMode: 'contain',
     backgroundColor: 'black',
+  },
+  closeButton: {
+    position: 'absolute',
+    right: 16,
+    top: 40,
+    backgroundColor: 'red',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

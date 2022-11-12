@@ -52,12 +52,15 @@ const MainNavigation = () => {
       <Stack.Screen
         name={Pages.EDIT_DETAILS}
         component={routes[Pages.EDIT_DETAILS]}
-        options={{ ...defaultOptions }}
+        options={{ ...defaultOptions}}
       />
       <Stack.Screen
         name={Pages.SETTINGS}
         component={routes[Pages.SETTINGS]}
-        options={{ ...defaultOptions, title: 'Settings' }}
+        options={{
+          ...defaultOptions,
+          title: 'Settings',
+        }}
       />
       <Stack.Screen
         name={Pages.CREATE_CALENDAR}

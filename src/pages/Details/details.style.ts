@@ -4,17 +4,19 @@ import { colors, metrics } from '../../themes';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
-    alignItems: 'center',
+    backgroundColor: 'black',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   title: {
     color: 'white',
     fontSize: 40,
-    position: 'absolute',
-    left: 16,
-    top: 16,
+    // position: 'absolute',
+    // left: 16,
+    // top: 16,
   },
   messageContainer: {
+    // zIndex:2,
     overflow: 'hidden',
     position: 'absolute',
     left: 16,
@@ -30,9 +32,12 @@ export default StyleSheet.create({
     fontSize: 24,
   },
   image: {
-    height: metrics.screenHeight,
-    width: metrics.screenWidth,
-    resizeMode: 'contain',
+    borderRadius: 20,
+
+    // flex: 1,
+    height: metrics.screenHeight / 1.5,
+    width: '100%',
+    // resizeMode: 'contain',
     backgroundColor: 'black',
   },
 });

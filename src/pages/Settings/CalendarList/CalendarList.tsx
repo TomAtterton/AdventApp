@@ -14,6 +14,7 @@ const CalendarList = ({ calendars, onPress }: Props) => (
         const { id, name } = calendar;
         return (
           <MenuItem
+            key={id}
             style={{ paddingLeft: 16 }}
             title={name}
             onPress={() => onPress(id, name)}

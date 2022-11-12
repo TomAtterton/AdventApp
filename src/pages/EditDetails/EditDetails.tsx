@@ -1,46 +1,26 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useEffect, useState } from 'react';
 import styles from './editDetails.style';
 import { Dimensions, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { BlurView } from 'expo-blur';
 import { GiphyDialog, GiphyDialogEvent, GiphyMedia } from '@giphy/react-native-sdk';
-import { useEffect } from 'react';
-import { useState } from 'react';
 import * as ImagePicker from 'react-native-image-picker';
 import { metrics } from '../../themes';
 import { useAppDispatch } from '../../utils/hooks';
 import { onUpdateCalendarItem } from '../../store/calendarSlice';
 import { useNavigation } from '@react-navigation/native';
+import Button from '../../components/Button';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ContentButton } from '../../components/Button/ContentButton';
+import { CONTENT_TYPE } from '../../store/types';
 
-export const ContentButton = ({ title, onPress }: { title: string; onPress: () => {} }) => {
-  return (
-    <TouchableOpacity
-      style={{
-        borderRadius: 20,
-        backgroundColor: 'green',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        marginVertical: 10,
-      }}
-      onPress={onPress}>
-      <Text style={{ color: 'white' }}>{title}</Text>
-    </TouchableOpacity>
-  );
-};
 const options = {
   maxHeight: Dimensions.get(`window`).height,
   maxWidth: Dimensions.get(`window`).width,
   selectionLimit: 1,
   mediaType: 'photo',
   includeBase64: true,
-
-  // includeExtra,
 };
-
-export enum CONTENT_TYPE {
-  IMAGE = 'image',
-  GIF = 'gif',
-}
 
 type ContentType = { url?: string; type: CONTENT_TYPE; base64?: string };
 
@@ -61,9 +41,11 @@ const EditDetails = ({
     params: { id, title, message, value, type },
   },
 }: Props) => {
-  console.log('EditDetails', id, title, message, value, type);
+  const { top } = useSafeAreaInsets();
   const navigation = useNavigation();
+  //
   const [showPreview, setShowPreview] = useState<boolean>(false);
+
   const [media, setMedia] = useState<ContentType | null>(
     value
       ? {
@@ -89,11 +71,12 @@ const EditDetails = ({
     };
   }, []);
 
-  const onChooseImage = useCallback(async () => {
-    const response = await ImagePicker.launchImageLibrary(options);
-    const initialAsset = response?.assets?.[0];
-    setMedia({ url: initialAsset?.uri, type: CONTENT_TYPE.IMAGE, base64: initialAsset?.base64 });
-  }, []);
+  // TODO support at a later time
+  // const onChooseImage = useCallback(async () => {
+  //   const response = await ImagePicker.launchImageLibrary(options);
+  //   const initialAsset = response?.assets?.[0];
+  //   setMedia({ url: initialAsset?.uri, type: CONTENT_TYPE.IMAGE, base64: initialAsset?.base64 });
+  // }, []);
 
   const onSave = useCallback(() => {
     if (media) {
@@ -124,38 +107,29 @@ const EditDetails = ({
   }, [media, text, id, title, dispatch, navigation]);
 
   const imageSource = useMemo(() => {
-    console.log('test', media);
-    return type === CONTENT_TYPE.GIF
+    return (media?.type || type) === CONTENT_TYPE.GIF
       ? { uri: media?.url || media?.uri }
       : { uri: `data:image/jpeg;base64, ${media?.base64}` };
-  }, [media, type]);
+  }, [media?.url, type]);
 
   return (
     <View style={styles.container}>
       {showPreview && media ? (
-        <View style={{ flex: 1 }}>
+        <View style={styles.container}>
           <Image style={styles.image} source={imageSource} />
           <BlurView style={styles.messageContainer}>
             <Text style={styles.message}>{text}</Text>
           </BlurView>
           <TouchableOpacity
-            style={{
-              position: 'absolute',
-              right: 16,
-              top: 40,
-              backgroundColor: 'red',
-              height: 40,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+            style={{ top: top + 16, position: 'absolute', right: 16 }}
             onPress={() => setShowPreview(false)}>
-            <Text style={{ color: 'white' }}>close</Text>
+            <Ionicons name="close" size={32} color="white" />
           </TouchableOpacity>
         </View>
       ) : (
         <>
           {media ? (
-            <View style={{ flex: 1, paddingTop: 80, marginHorizontal: 24 }}>
+            <View style={{ flex: 1, paddingTop: top + 80, marginHorizontal: 24 }}>
               <Image
                 style={{
                   alignSelf: 'center',
@@ -176,14 +150,19 @@ const EditDetails = ({
             </View>
           ) : (
             <View style={{ flex: 1, justifyContent: 'center', marginHorizontal: 24 }}>
-              <ContentButton title={'Choose Image'} onPress={onChooseImage} />
-              <ContentButton title={'Choose Gif'} onPress={GiphyDialog.show} />
+              {/*<ContentButton title={'Choose Image'} onPress={onChooseImage} />*/}
+              <ContentButton title={'Select Gif'} onPress={GiphyDialog.show} />
             </View>
           )}
+          <Button
+            style={{ top: top, position: 'absolute', left: 16 }}
+            onPress={() => navigation.goBack()}>
+            <Ionicons name="chevron-back" size={32} color="white" />
+          </Button>
         </>
       )}
     </View>
   );
 };
 
-export default EditDetails;
+export default memo(EditDetails);

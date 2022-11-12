@@ -3,23 +3,29 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import styles, { DOOR_HEIGHT, DOOR_WIDTH } from './door.style';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../themes';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, {
+  SharedTransition,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import Pages from '../../enum/Pages';
-import { BlurView } from 'expo-blur';
+import IconComponent from '../IconComponent';
 
 interface Props {
-  title: string;
+  title: number;
   message: string;
-  value: string;
+  value?: string | null;
   index: number;
   isActive: boolean;
+  isCreating?: boolean;
   id?: string;
   type?: string;
 }
 
 const colorArray = [colors.advent4, colors.advent1, colors.advent2, colors.advent3];
 
-const Door = ({ title, message, value, index, isActive, id, type }: Props) => {
+const Door = ({ title, message, value, index, isActive, id, type, isCreating }: Props) => {
   const navigation = useNavigation();
 
   const [isOpened, setIsOpened] = useState(false);
@@ -60,21 +66,45 @@ const Door = ({ title, message, value, index, isActive, id, type }: Props) => {
   const onNavigate = useCallback(() => {
     navigation.navigate({
       name: !!id ? Pages.EDIT_DETAILS : Pages.DETAILS,
-      params: { title, message, value, id, type },
+      params: { title, message, value, id, type, index,type },
     });
-  }, [backgroundColor, index, navigation, title, id, message, value]);
+  }, [backgroundColor, index, navigation, title, id, message, value, type]);
 
   const onDoorPress = useCallback(() => {
-    // hapticFeedback();
-    !isOpened ? onAnimateDoor(false) : onNavigate();
+    if (isOpened || isCreating) {
+      onNavigate();
+      return;
+    }
+
+    onAnimateDoor(false);
+    // translateX.value = withTiming(isOpened ? 0 : 100, { duration: 1000 });
+    setTimeout(() => {
+      onNavigate();
+    }, 1000);
   }, [isOpened, onAnimateDoor, onNavigate]);
+
+  const transition = SharedTransition.custom((values: any) => {
+    'worklet';
+    return {
+      height: withTiming(values.targetHeight, { duration: 1000 }),
+      width: withTiming(values.targetWidth, { duration: 1000 }),
+      originX: withTiming(values.targetOriginX, { duration: 1000 }),
+      originY: withTiming(values.targetOriginY, { duration: 1000 }),
+    };
+  });
 
   return (
     <View>
       <TouchableOpacity disabled={!isActive} style={styles.container} onPress={onDoorPress}>
         <View style={styles.innerContainer}>
-          {value && isOpened && <Image style={styles.image} source={{ uri: value }} />}
-          <BlurView tint={'dark'} style={styles.tintView} />
+          {isOpened && (
+            <Animated.View
+              sharedTransitionTag={`door-${index}`}
+              sharedTransitionStyle={transition}
+              style={styles.temp}>
+              <IconComponent value={index} />
+            </Animated.View>
+          )}
         </View>
         <Animated.View style={[styles.innerLeft, animatedStyleLeft]}>
           <Image source={require('../../assets/test2.png')} style={styles.innerContentLeft} />
@@ -82,15 +112,9 @@ const Door = ({ title, message, value, index, isActive, id, type }: Props) => {
         <Animated.View style={[styles.innerRight, animatedStyleRight]}>
           <Image source={require('../../assets/test2.png')} style={styles.innerContentRight} />
         </Animated.View>
-
-        <Text style={styles.title}>{title}</Text>
+        {!isOpened && <Text style={styles.title}>{title}</Text>}
         {!isActive && <View style={styles.overlay} />}
       </TouchableOpacity>
-      {isOpened && (
-        <TouchableOpacity onPress={() => onAnimateDoor(true)} style={styles.closeButton}>
-          <Text style={{ color: 'white', textAlign: 'center' }}>{'X'}</Text>
-        </TouchableOpacity>
-      )}
     </View>
   );
 };

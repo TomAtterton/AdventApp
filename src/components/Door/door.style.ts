@@ -8,7 +8,7 @@ export const DOOR_WIDTH = metrics.screenWidth / 2 - DOOR_MARGIN * 2;
 
 export default StyleSheet.create({
   container: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 8,
@@ -18,7 +18,7 @@ export default StyleSheet.create({
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
     margin: DOOR_MARGIN,
-    opacity: 0.8,
+    // opacity: 0.8,
   },
   innerContainer: {
     flex: 1,
@@ -26,11 +26,30 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  imageContainer: {},
   image: {
     borderRadius: 20,
-    height: '100%',
-    width: '100%',
-    resizeMode: 'contain',
+    height: DOOR_HEIGHT,
+    width: DOOR_WIDTH,
+    // height: '100%',
+    // width: '100%',
+    // resizeMode: 'contain',
+  },
+  temp: {
+    borderRadius: 20,
+    height: DOOR_HEIGHT,
+    width: DOOR_WIDTH,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tempTitle: {
+    // position: 'absolute',
+    // left: 8,
+    // top: 8,
+    fontSize: 50,
+    color: 'white',
+    textAlign: 'center',
   },
   tintView: {
     overflow: 'hidden',

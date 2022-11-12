@@ -10,9 +10,11 @@ import { onAddCalendar, onSelectCalendar } from '../../store/calendarSlice';
 import uuid from 'react-native-uuid';
 import Collapsible from 'react-native-collapsible';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchCalendars } from '../../utils/firebaseUtils';
 import CalendarList from './CalendarList/CalendarList';
+import Button from '../../components/Button';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 interface Props {}
 
@@ -49,9 +51,9 @@ const Settings = ({}: Props) => {
 
   const [showEditCalendars, setShowEditCalendars] = useState(false);
   const [showSelectCalendars, setShowSelectCalendars] = useState(false);
-
+  const { top } = useSafeAreaInsets();
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: top + 64 }]}>
       <View style={styles.menuItemContainer}>
         <MenuItem
           title={'Create calendar'}
@@ -87,12 +89,15 @@ const Settings = ({}: Props) => {
         </Collapsible>
         <View style={{ height: 16 }} />
       </View>
+      <Button style={[{ top: top, position: 'absolute', left: 16 }]} onPress={() => goBack()}>
+        <Ionicons name="chevron-back" size={32} color="white" />
+      </Button>
       <DialogTextInput
         isVisible={showDialog}
         onHandleOk={onCreateCalendar}
         onHandleCancel={() => setShowDialog(false)}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

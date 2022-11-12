@@ -1,4 +1,4 @@
-import { CONTENT_TYPE } from '../pages/EditDetails/EditDetails';
+import { CONTENT_TYPE } from '../store/types';
 
 export type advent = {
   day: number;
