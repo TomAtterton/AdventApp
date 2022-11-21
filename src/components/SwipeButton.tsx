@@ -89,7 +89,7 @@ const SwipeButton = ({ style, onToggle }: Props) => {
         backgroundColor: interpolateColor(
           X.value,
           [0, BUTTON_WIDTH - (SWIPEABLE_DIMENSIONS * 3) - BUTTON_PADDING],
-          ['#06d6a0', '#fff'],
+          ['#001E85', '#fff'],
         ),
         transform: [{ translateX: X.value }],
       };
@@ -115,7 +115,7 @@ const SwipeButton = ({ style, onToggle }: Props) => {
     <Animated.View style={[styles.swipeCont, AnimatedStyles.swipeCont, style]}>
       <AnimatedLinearGradient
         style={[AnimatedStyles.colorWave, styles.colorWave]}
-        colors={['#06d6a0', '#1b9aaa']}
+        colors={['#06d6a0', '#001E85']}
         start={{ x: 0.0, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}
       />
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     zIndex: 2,
-    color: '#1b9aaa',
+    color: '#001E85',
   },
 });
 

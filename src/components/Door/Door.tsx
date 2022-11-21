@@ -11,6 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import Pages from '../../enum/Pages';
 import IconComponent from '../IconComponent';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface Props {
   title: number;
@@ -66,7 +67,7 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
   const onNavigate = useCallback(() => {
     navigation.navigate({
       name: !!id ? Pages.EDIT_DETAILS : Pages.DETAILS,
-      params: { title, message, value, id, type, index,type },
+      params: { title, message, value, id, type, index, type },
     });
   }, [backgroundColor, index, navigation, title, id, message, value, type]);
 
@@ -102,6 +103,17 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
               sharedTransitionTag={`door-${index}`}
               // sharedTransitionStyle={transition}
               style={styles.temp}>
+              <LinearGradient
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  top: 0,
+                  borderRadius: 20,
+                }}
+                colors={['#FFFFFF', '#FFC9E2', '#FFC9E2', '#FF4568']}
+              />
               <IconComponent value={index} />
             </Animated.View>
           )}

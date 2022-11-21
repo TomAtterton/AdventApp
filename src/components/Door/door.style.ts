@@ -36,7 +36,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
-    backgroundColor: '#FFC9E2',
+    // backgroundColor: '#FFC9E2',
     justifyContent: 'center',
     alignItems: 'center',
   },

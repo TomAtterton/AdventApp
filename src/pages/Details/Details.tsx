@@ -22,6 +22,7 @@ import Button from '../../components/Button';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import SwipeButton from '../../components/SwipeButton';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface Props {
   route: {
@@ -107,6 +108,21 @@ const Details = ({
             alignItems: 'center',
           }}
           sharedTransitionTag={`door-${index}`}>
+          <LinearGradient
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              top: 0,
+              borderRadius: 20,
+              // height: DOOR_HEIGHT,
+              // width: DOOR_WIDTH,
+            }}
+            colors={['#FFFFFF', '#FFC9E2', '#FFC9E2', '#FF4568']}
+            // start={{ x: 0.0, y: 0.5 }}
+            // end={{ x: 1, y: 0.5 }}
+          />
           <Animated.View
             style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 250 }}
             entering={FadeIn.delay(500).duration(1000)}>
