@@ -6,7 +6,9 @@ interface Props {
 }
 
 const Button = ({ children, ...props }: Props & PressableProps) => (
-  <Pressable {...props}>{children}</Pressable>
+  <Pressable hitSlop={{ left: 20, right: 20, top: 20, bottom: 20 }} {...props}>
+    {children}
+  </Pressable>
 );
 
 export default Button;

@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import metrics from '../../themes/metrics';
 import { colors } from '../../themes';
+import fonts from '../../themes/fonts';
 
 const DOOR_MARGIN = 32;
 export const DOOR_HEIGHT = metrics.screenWidth / 3;
@@ -39,7 +40,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
-    backgroundColor: 'black',
+    backgroundColor: '#FFC9E2',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -100,10 +101,12 @@ export default StyleSheet.create({
     borderRadius: 20,
   },
   title: {
+    fontFamily: fonts.CHRISTMAS_BOLD,
     position: 'absolute',
-    left: 8,
-    top: 8,
-    fontSize: 50,
+    left: 16,
+    //TODO why
+    top: -10,
+    fontSize: 60,
     color: 'white',
     textAlign: 'center',
   },

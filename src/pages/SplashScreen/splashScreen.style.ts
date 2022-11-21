@@ -1,23 +1,19 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../themes';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  titleImage: {
+  image: {
     height: '100%',
     width: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     position: 'absolute',
   },
   bird: {
-    // alignSelf: 'center',
-    // position: 'absolute',
-    // top: 60,
+    position: 'absolute',
     height: 200,
   },
   headerImage: {

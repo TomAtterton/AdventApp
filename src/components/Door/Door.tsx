@@ -28,7 +28,7 @@ const colorArray = [colors.advent4, colors.advent1, colors.advent2, colors.adven
 const Door = ({ title, message, value, index, isActive, id, type, isCreating }: Props) => {
   const navigation = useNavigation();
 
-  const [isOpened, setIsOpened] = useState(false);
+  const [isOpened, setIsOpened] = useState(true);
   const backgroundColor = useMemo(() => colorArray[index % 4], [index]);
 
   const translateX = useSharedValue(0);
@@ -83,15 +83,15 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
     }, 1000);
   }, [isOpened, onAnimateDoor, onNavigate]);
 
-  const transition = SharedTransition.custom((values: any) => {
-    'worklet';
-    return {
-      height: withTiming(values.targetHeight, { duration: 1000 }),
-      width: withTiming(values.targetWidth, { duration: 1000 }),
-      originX: withTiming(values.targetOriginX, { duration: 1000 }),
-      originY: withTiming(values.targetOriginY, { duration: 1000 }),
-    };
-  });
+  // const transition = SharedTransition.custom((values: any) => {
+  //   'worklet';
+  //   return {
+  //     height: withTiming(values.targetHeight, { duration: 1000 }),
+  //     width: withTiming(values.targetWidth, { duration: 1000 }),
+  //     originX: withTiming(values.targetOriginX, { duration: 1000 }),
+  //     originY: withTiming(values.targetOriginY, { duration: 1000 }),
+  //   };
+  // });
 
   return (
     <View>
@@ -100,18 +100,18 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
           {isOpened && (
             <Animated.View
               sharedTransitionTag={`door-${index}`}
-              sharedTransitionStyle={transition}
+              // sharedTransitionStyle={transition}
               style={styles.temp}>
               <IconComponent value={index} />
             </Animated.View>
           )}
         </View>
-        <Animated.View style={[styles.innerLeft, animatedStyleLeft]}>
-          <Image source={require('../../assets/test2.png')} style={styles.innerContentLeft} />
-        </Animated.View>
-        <Animated.View style={[styles.innerRight, animatedStyleRight]}>
-          <Image source={require('../../assets/test2.png')} style={styles.innerContentRight} />
-        </Animated.View>
+        {/*<Animated.View style={[styles.innerLeft, animatedStyleLeft]}>*/}
+        {/*  <Image source={require('../../assets/test2.png')} style={styles.innerContentLeft} />*/}
+        {/*</Animated.View>*/}
+        {/*<Animated.View style={[styles.innerRight, animatedStyleRight]}>*/}
+        {/*  <Image source={require('../../assets/test2.png')} style={styles.innerContentRight} />*/}
+        {/*</Animated.View>*/}
         {!isOpened && <Text style={styles.title}>{title}</Text>}
         {!isActive && <View style={styles.overlay} />}
       </TouchableOpacity>

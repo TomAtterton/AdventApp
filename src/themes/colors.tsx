@@ -8,5 +8,10 @@ const colors = {
   homeBackground: 'black',
   white: '#CFDAC8',
   black: '#000000',
+
+
+  red:'#FF4568',
+  pink:'#FFC9E2',
+  blue:'#001E85'
 };
 export default colors;

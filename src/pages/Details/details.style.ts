@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
 import { colors, metrics } from '../../themes';
+import fonts from '../../themes/fonts';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#FFC9E2',
+    // backgroundColor: 'black',
     // alignItems: 'center',
     // justifyContent: 'center',
   },
@@ -23,13 +25,15 @@ export default StyleSheet.create({
     right: 16,
     bottom: 32,
     paddingHorizontal: 16,
-    paddingVertical: 4,
+    paddingVertical: 16,
     borderRadius: 20,
   },
   message: {
+    fontFamily: fonts.CHRISTMAS_BOLD,
+
     textAlign: 'center',
     color: 'white',
-    fontSize: 24,
+    fontSize: 35,
   },
   image: {
     borderRadius: 20,
