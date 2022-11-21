@@ -22,7 +22,7 @@ const Home = ({}) => {
     <View style={[styles.container, { paddingTop: 0 }]}>
       <StatusBar barStyle={'light-content'} />
       <Image
-        source={require('../../assets/images/snow_mountain.png')}
+        source={require('../../assets/images/night_lake.jpg')}
         style={styles.backgroundImage}
       />
       <BlurView tint={'dark'} intensity={20} style={styles.blurView}></BlurView>

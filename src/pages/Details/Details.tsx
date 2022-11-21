@@ -3,6 +3,7 @@ import styles from './details.style';
 import { Image, Text, View } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { useNavigation } from '@react-navigation/native';
+
 import Animated, {
   FadeIn,
   FadeOut,
@@ -20,6 +21,7 @@ import { AdventSvgs } from '../../utils/adventUtils';
 import Button from '../../components/Button';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import SwipeButton from '../../components/SwipeButton';
 
 interface Props {
   route: {
@@ -97,7 +99,7 @@ const Details = ({
       )}
 
       {!shouldShow && (
-        <Animated.View
+        <View
           style={{
             flex: 1,
             backgroundColor: '#FFC9E2',
@@ -110,11 +112,15 @@ const Details = ({
             entering={FadeIn.delay(500).duration(1000)}>
             <LottieView autoPlay={true} source={Animations.BALL_BALLS} />
           </Animated.View>
-          <ContentButton title={'CONTINUE TO GIF'} onPress={() => setShouldShow(true)} />
-          <View style={{ position: 'absolute', bottom: 20 }}>
-            <IconComponent height={200} width={200} value={index} />
-          </View>
-        </Animated.View>
+
+          <IconComponent height={200} width={200} value={index} />
+          <SwipeButton
+            style={{ position: 'absolute', bottom: 60 }}
+            onToggle={() => {
+              setShouldShow(true);
+            }}
+          />
+        </View>
       )}
     </View>
   );

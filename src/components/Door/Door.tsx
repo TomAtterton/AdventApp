@@ -28,7 +28,7 @@ const colorArray = [colors.advent4, colors.advent1, colors.advent2, colors.adven
 const Door = ({ title, message, value, index, isActive, id, type, isCreating }: Props) => {
   const navigation = useNavigation();
 
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
   const backgroundColor = useMemo(() => colorArray[index % 4], [index]);
 
   const translateX = useSharedValue(0);
@@ -106,12 +106,12 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
             </Animated.View>
           )}
         </View>
-        {/*<Animated.View style={[styles.innerLeft, animatedStyleLeft]}>*/}
-        {/*  <Image source={require('../../assets/test2.png')} style={styles.innerContentLeft} />*/}
-        {/*</Animated.View>*/}
-        {/*<Animated.View style={[styles.innerRight, animatedStyleRight]}>*/}
-        {/*  <Image source={require('../../assets/test2.png')} style={styles.innerContentRight} />*/}
-        {/*</Animated.View>*/}
+        <Animated.View style={[styles.innerLeft, animatedStyleLeft]}>
+          <Image source={require('../../assets/test2.png')} style={styles.innerContentLeft} />
+        </Animated.View>
+        <Animated.View style={[styles.innerRight, animatedStyleRight]}>
+          <Image source={require('../../assets/test2.png')} style={styles.innerContentRight} />
+        </Animated.View>
         {!isOpened && <Text style={styles.title}>{title}</Text>}
         {!isActive && <View style={styles.overlay} />}
       </TouchableOpacity>

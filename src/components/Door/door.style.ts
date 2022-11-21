@@ -19,7 +19,6 @@ export default StyleSheet.create({
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
     margin: DOOR_MARGIN,
-    // opacity: 0.8,
   },
   innerContainer: {
     flex: 1,
@@ -32,9 +31,6 @@ export default StyleSheet.create({
     borderRadius: 20,
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
-    // height: '100%',
-    // width: '100%',
-    // resizeMode: 'contain',
   },
   temp: {
     borderRadius: 20,
@@ -45,9 +41,6 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   tempTitle: {
-    // position: 'absolute',
-    // left: 8,
-    // top: 8,
     fontSize: 50,
     color: 'white',
     textAlign: 'center',
@@ -88,7 +81,6 @@ export default StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
     right: 0,
-    backgroundColor: 'blue',
   },
   overlay: {
     position: 'absolute',
