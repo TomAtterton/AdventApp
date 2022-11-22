@@ -13,6 +13,7 @@ export default StyleSheet.create({
     position: 'absolute',
   },
   bird: {
+    bottom:20,
     position: 'absolute',
     height: 200,
   },
