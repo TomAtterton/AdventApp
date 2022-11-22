@@ -15,6 +15,7 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import { useState } from 'react';
+import fonts from "../themes/fonts";
 
 const BUTTON_WIDTH = Dimensions.get('window').width * 0.8;
 const BUTTON_HEIGHT = 50;
@@ -156,6 +157,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   swipeText: {
+    fontFamily: fonts.CHRISTMAS_BOLD,
     alignSelf: 'center',
     fontSize: 20,
     fontWeight: 'bold',

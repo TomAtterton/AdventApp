@@ -97,8 +97,15 @@ export default StyleSheet.create({
     position: 'absolute',
     left: 16,
     //TODO why
-    top: -10,
+    // top: -10,
     fontSize: 60,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.46,
+    shadowRadius: 11.14,
     color: 'white',
     textAlign: 'center',
   },

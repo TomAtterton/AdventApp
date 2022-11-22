@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState, useEffect } from 'react';
+import React, { memo, useCallback, useState, useEffect, useMemo } from 'react';
 import { FlatList, ViewProps } from 'react-native';
 import styles from './adventList.style';
 import { useAppState } from '@react-native-community/hooks';
@@ -16,8 +16,13 @@ interface Props {
 }
 
 const keyExtractor = (item: advent, index: number) => `${item?.day} + ${index}`;
+const randomArray = Array.from({ length: 24 }, (_, i) => i + 1).sort(() => Math.random() - 0.5);
 
 const AdventList = ({ style, data, id, isCreating }: Props) => {
+  const reorderedData = useMemo(
+    () => data?.map((item, index) => ({ ...data[randomArray[index]] })),
+    [data],
+  );
   const currentAppState = useAppState();
 
   const [currentDay, setCurrentDay] = useState(currentDayOfMonth());
@@ -29,18 +34,21 @@ const AdventList = ({ style, data, id, isCreating }: Props) => {
   }, [currentAppState]);
 
   const onRenderItem = useCallback(
-    ({ item, index }: { item: advent; index: number }) => (
-      <Door
-        title={item.day}
-        index={index}
-        message={item.message}
-        value={item.value}
-        isActive={index + 1 <= currentDay}
-        id={id}
-        type={item.type}
-        isCreating={isCreating}
-      />
-    ),
+    ({ item, index }: { item: advent; index: number }) => {
+      const currentDayIndex = randomArray[index];
+      return (
+        <Door
+          title={currentDayIndex}
+          message={item.message}
+          value={item.value}
+          index={currentDayIndex}
+          isActive={currentDayIndex <= currentDay}
+          id={id}
+          type={item.type}
+          isCreating={isCreating}
+        />
+      );
+    },
     [id, currentDay, isCreating],
   );
 
@@ -53,7 +61,7 @@ const AdventList = ({ style, data, id, isCreating }: Props) => {
       style={[styles.container, style]}
       contentContainerStyle={{ paddingBottom: bottom + top + 30 }}
       numColumns={2}
-      data={data}
+      data={reorderedData}
       renderItem={onRenderItem}
     />
   );

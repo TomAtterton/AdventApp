@@ -69,7 +69,7 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
       name: !!id ? Pages.EDIT_DETAILS : Pages.DETAILS,
       params: { title, message, value, id, type, index, type },
     });
-  }, [backgroundColor, index, navigation, title, id, message, value, type]);
+  }, [index, navigation, title, id, message, value, type]);
 
   const onDoorPress = useCallback(() => {
     if (isOpened || isCreating) {
