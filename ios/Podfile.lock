@@ -620,6 +620,8 @@ PODS:
     - ExpoModulesCore
   - Expo (47.0.3):
     - ExpoModulesCore
+  - ExpoHaptics (12.0.1):
+    - ExpoModulesCore
   - ExpoKeepAwake (11.0.1):
     - ExpoModulesCore
   - ExpoModulesCore (1.0.2):
@@ -1445,6 +1447,7 @@ DEPENDENCIES:
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
   - EXFont (from `../node_modules/expo-font/ios`)
   - Expo (from `../node_modules/expo`)
+  - ExpoHaptics (from `../node_modules/expo-haptics/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -1545,6 +1548,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-font/ios"
   Expo:
     :path: "../node_modules/expo"
+  ExpoHaptics:
+    :path: "../node_modules/expo-haptics/ios"
   ExpoKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
@@ -1663,6 +1668,7 @@ SPEC CHECKSUMS:
   EXFileSystem: 60602b6eefa6873f97172c684b7537c9760b50d6
   EXFont: 319606bfe48c33b5b5063fb0994afdc496befe80
   Expo: 8e4f1d149b58d5df10d302e0b5c489f9fc6623fc
+  ExpoHaptics: 5a56d30a87ea213dd00b09566dc4b441a4dff97f
   ExpoKeepAwake: 69b59d0a8d2b24de9f82759c39b3821fec030318
   ExpoModulesCore: 20decc110ca3987e1728dee2ce4b3f79e147edda
   FBLazyVector: affa4ba1bfdaac110a789192f4d452b053a86624

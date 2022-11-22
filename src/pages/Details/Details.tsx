@@ -23,6 +23,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import SwipeButton from '../../components/SwipeButton';
 import LinearGradient from 'react-native-linear-gradient';
+import * as Haptics from "expo-haptics";
 
 interface Props {
   route: {
@@ -133,6 +134,7 @@ const Details = ({
           <SwipeButton
             style={{ position: 'absolute', bottom: 60 }}
             onToggle={() => {
+              Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
               setShouldShow(true);
             }}
           />

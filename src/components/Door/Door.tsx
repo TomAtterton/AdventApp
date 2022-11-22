@@ -24,6 +24,8 @@ interface Props {
   type?: string;
 }
 
+import * as Haptics from 'expo-haptics';
+
 const colorArray = [colors.advent4, colors.advent1, colors.advent2, colors.advent3];
 
 const Door = ({ title, message, value, index, isActive, id, type, isCreating }: Props) => {
@@ -72,6 +74,8 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
   }, [index, navigation, title, id, message, value, type]);
 
   const onDoorPress = useCallback(() => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+
     if (isOpened || isCreating) {
       onNavigate();
       return;
