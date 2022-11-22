@@ -1,5 +1,15 @@
-import React, { useMemo } from 'react';
-import Animated, { interpolateNode } from 'react-native-reanimated';
+import React, { memo, useEffect, useMemo } from 'react';
+import Animated, {
+  Easing,
+  Extrapolation,
+  interpolate,
+  interpolateNode,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 
 import runLoopAnimation from '../../helpers/runLoopAnimation';
 import { ILayout, IParticle } from '../../types';
@@ -11,35 +21,52 @@ type Props = {
 };
 
 const Snow = ({ data, layout }: Props) => {
-  const animation = useMemo(
-    () =>
-      runLoopAnimation({
-        delay: data.deltas.delay,
-        duration: data.deltas.duration,
-      }),
-    [data.deltas.delay, data.deltas.duration],
-  );
+  // const animations = useMemo(
+  //   () =>
+  //     runLoopAnimation({
+  //       delay: data.deltas.delay,
+  //       duration: data.deltas.duration,
+  //     }),
+  //   [data.deltas.delay, data.deltas.duration],
+  // );
 
-  const animatedStyles = useMemo(
-    () => [
-      styles.container,
-      {
-        width: data.size,
-        height: data.size,
-        left: data.deltas.left * layout.width,
-        bottom: interpolateNode(animation, {
-          inputRange: [0, 1],
-          outputRange: [
-            layout.height + data.size * data.deltas.bottom,
-            -layout.height + data.size * data.deltas.bottom,
-          ],
-        }),
+  const animation = useSharedValue(0);
+  useEffect(() => {
+    animation.value = withRepeat(
+      withDelay(
+        data.deltas.delay,
+        withTiming(1, { duration: data.deltas.duration, easing: Easing.quad }),
+      ),
+      -1,
+      false,
+      finished => {
+        if (finished) {
+          animation.value = 0;
+        }
       },
-    ],
-    [animation, data.deltas.bottom, data.deltas.left, data.size, layout.height, layout.width],
-  );
+    );
+  }, []);
 
-  return <Animated.View style={animatedStyles}>{data.shape}</Animated.View>;
+  const animatedStyle = useAnimatedStyle(() => {
+    const bottom = interpolate(
+      animation.value,
+      [0, 1],
+      [
+        layout.height + data.size * data.deltas.bottom,
+        -layout.height + data.size * data.deltas.bottom,
+      ],
+      { extrapolateRight: Extrapolation.CLAMP },
+    );
+
+    return {
+      width: data.size,
+      height: data.size,
+      left: data.deltas.left * layout.width,
+      bottom,
+    };
+  }, [animation.value]);
+
+  return <Animated.View style={[styles.container, animatedStyle]}>{data.shape}</Animated.View>;
 };
 
-export default Snow;
+export default memo(Snow);

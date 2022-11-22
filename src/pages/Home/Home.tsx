@@ -10,8 +10,7 @@ import Button from '../../components/Button';
 import Pages from '../../enum/Pages';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-//TODO fix snow not working
-import SnowFall from '../../components/SnowFall/SnowFall';
+import SnowFall from "../../components/SnowFall/SnowFall";
 
 const Home = ({}) => {
   const currentCalendar = useAppSelector(state => state.calendar.currentCalendar || defaultAdvent);
@@ -26,7 +25,7 @@ const Home = ({}) => {
         style={styles.backgroundImage}
       />
       <BlurView tint={'dark'} intensity={20} style={styles.blurView}></BlurView>
-      {/*<SnowFall />*/}
+      <SnowFall />
       <Button style={[styles.settingsButton, { top: top }]} onPress={onNavigateToSettings}>
         <Ionicons name="ios-settings-sharp" size={32} color="white" />
       </Button>
