@@ -42,7 +42,7 @@ const AdventList = ({ style, data, id, isCreating }: Props) => {
           message={item.message}
           value={item.value}
           index={currentDayIndex}
-          isActive={(currentDayIndex <= currentDay) || isCreating}
+          isActive={(currentDayIndex <= (currentDay - 1)) || isCreating}
           id={id}
           type={item.type}
           isCreating={isCreating}
