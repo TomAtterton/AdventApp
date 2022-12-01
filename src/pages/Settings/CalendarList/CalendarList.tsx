@@ -7,7 +7,7 @@ interface Props {
   onPress: (id: string, name: string) => void;
 }
 
-const CalendarList = ({ calendars, onPress }: Props) => (
+const CalendarList = ({ selectedCalendarId, calendars, onPress }: Props) => (
   <View style={{ backgroundColor: 'white' }}>
     {calendars &&
       Object.values(calendars).map(calendar => {
@@ -15,7 +15,10 @@ const CalendarList = ({ calendars, onPress }: Props) => (
         return (
           <MenuItem
             key={id}
-            style={{ paddingLeft: 16 }}
+            style={{
+              paddingLeft: 16,
+              backgroundColor: selectedCalendarId === id ? 'red' : 'white',
+            }}
             title={name}
             onPress={() => onPress(id, name)}
             iconName={'right'}

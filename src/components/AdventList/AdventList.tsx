@@ -16,7 +16,7 @@ interface Props {
 }
 
 const keyExtractor = (item: advent, index: number) => `${item?.day} + ${index}`;
-const randomArray = Array.from({ length: 24 }, (_, i) => i + 1).sort(() => Math.random() - 0.5);
+const randomArray = Array.from({ length: 23 }, (_, i) => i ).sort(() => Math.random() - 0.5);
 
 const AdventList = ({ style, data, id, isCreating }: Props) => {
   const reorderedData = useMemo(
@@ -38,11 +38,11 @@ const AdventList = ({ style, data, id, isCreating }: Props) => {
       const currentDayIndex = randomArray[index];
       return (
         <Door
-          title={currentDayIndex}
+          title={currentDayIndex + 1}
           message={item.message}
           value={item.value}
           index={currentDayIndex}
-          isActive={currentDayIndex <= currentDay}
+          isActive={(currentDayIndex <= currentDay) || isCreating}
           id={id}
           type={item.type}
           isCreating={isCreating}

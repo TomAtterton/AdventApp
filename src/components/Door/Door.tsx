@@ -67,6 +67,9 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
   }, []);
 
   const onNavigate = useCallback(() => {
+
+
+
     navigation.navigate({
       name: !!id ? Pages.EDIT_DETAILS : Pages.DETAILS,
       params: { title, message, value, id, type, index, type },
@@ -100,7 +103,7 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
 
   return (
     <View>
-      <TouchableOpacity disabled={!isActive} style={styles.container} onPress={onDoorPress}>
+      <TouchableOpacity disabled={!isActive } style={styles.container} onPress={onDoorPress}>
         <View style={styles.innerContainer}>
           {isOpened && (
             <Animated.View

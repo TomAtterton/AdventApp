@@ -84,5 +84,3 @@ export const calendarSlice = createSlice({
 
 export const { onAddCalendar, onUpdateCalendarItem, onSelectCalendar, onSyncCalendar } =
   calendarSlice.actions;
-
-export default calendarSlice.reducer;

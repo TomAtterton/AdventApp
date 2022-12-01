@@ -25,9 +25,9 @@ const Settings = ({}: Props) => {
 
   const dispatch = useAppDispatch();
   const createdCalendars = useAppSelector(state => state.calendar.createdCalendars);
-
+  const currentCalendarId = useAppSelector(state => state.calendar.currentCalendarId);
   useEffect(() => {
-      dispatch(onFetchAllCalendars({}));
+      dispatch(onFetchAllCalendars());
   }, []);
 
   const onNavigateToCalendar = useCallback((id: string, name: string) => {
@@ -80,6 +80,7 @@ const Settings = ({}: Props) => {
         />
         <Collapsible collapsed={!showSelectCalendars}>
           <CalendarList
+              selectedCalendarId={currentCalendarId}
             calendars={createdCalendars}
             onPress={id => {
               dispatch(onSelectCalendar({ id }));
