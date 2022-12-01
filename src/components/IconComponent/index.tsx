@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { AdventSvgs } from '../../utils/adventUtils';
+import { AdventImages } from '../../utils/adventUtils';
 import { DOOR_HEIGHT, DOOR_WIDTH } from '../Door/door.style';
 import Animated, { SharedTransition, withTiming } from 'react-native-reanimated';
 
@@ -9,11 +9,12 @@ const IconComponent = ({
   width = DOOR_WIDTH / 2,
   value,
 }: {
+  style: any;
   height?: number;
   width?: number;
   value: number;
 }) => {
-  const Icon = useMemo(() => AdventSvgs[value], [value]);
+  const imageSource = useMemo(() => AdventImages[value], [value]);
   const transition = SharedTransition.custom((values: any) => {
     'worklet';
     return {
@@ -24,12 +25,12 @@ const IconComponent = ({
     };
   });
   return (
-    <Animated.View
+    <Animated.Image
       style={[{ height, width }, style]}
+      source={imageSource}
       sharedTransitionStyle={transition}
-      sharedTransitionTag={`icon-door-${value}`}>
-      <Icon height={height} width={width} />
-    </Animated.View>
+      sharedTransitionTag={`icon-door-${value}`}
+    />
   );
 };
 
