@@ -16,7 +16,7 @@ interface Props {
 }
 
 const keyExtractor = (item: advent, index: number) => `${item?.day} + ${index}`;
-const randomArray = Array.from({ length: 23 }, (_, i) => i ).sort(() => Math.random() - 0.5);
+const randomArray = Array.from({ length: 24 }, (_, i) => i ).sort(() => Math.random() - 0.5);
 
 const AdventList = ({ style, data, id, isCreating }: Props) => {
   const reorderedData = useMemo(
