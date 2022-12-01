@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { setupGiphy } from './src/utils/giphyUtils';
 import AppProvider from './src/providers';
 import SplashScreen from './src/pages/SplashScreen/SplashScreen';
+import SplashScreenAPI from 'react-native-splash-screen';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -16,6 +17,7 @@ export default function App() {
   useEffect(() => {
     setupGiphy();
 
+    SplashScreenAPI.hide();
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);

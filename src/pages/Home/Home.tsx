@@ -10,13 +10,16 @@ import Button from '../../components/Button';
 import Pages from '../../enum/Pages';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import SnowFall from "../../components/SnowFall/SnowFall";
+import SnowFall from '../../components/SnowFall/SnowFall';
 
 const Home = ({}) => {
   const currentCalendar = useAppSelector(state => state.calendar.currentCalendar || defaultAdvent);
   const { top } = useSafeAreaInsets();
   const { navigate } = useNavigation();
   const onNavigateToSettings = () => navigate({ name: Pages.SETTINGS });
+
+  const adventListTopPadding = top + BUTTON_HEIGHT;
+
   return (
     <View style={[styles.container, { paddingTop: 0 }]}>
       <StatusBar barStyle={'light-content'} />
@@ -29,7 +32,7 @@ const Home = ({}) => {
       <Button style={[styles.settingsButton, { top: top }]} onPress={onNavigateToSettings}>
         <Ionicons name="ios-settings-sharp" size={32} color="white" />
       </Button>
-      <AdventList style={{ paddingTop: top + BUTTON_HEIGHT }} data={currentCalendar} />
+      <AdventList style={{ paddingTop: adventListTopPadding }} data={currentCalendar} />
     </View>
   );
 };

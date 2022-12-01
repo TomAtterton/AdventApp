@@ -6,11 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import Pages from '../../enum/Pages';
 import DialogTextInput from '../../components/DialogTextInput';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
-import { onAddCalendar, onSelectCalendar } from '../../store/calendarSlice';
+import { onAddCalendar, onFetchAllCalendars, onSelectCalendar } from '../../store/calendarSlice';
 import uuid from 'react-native-uuid';
 import Collapsible from 'react-native-collapsible';
 
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchCalendars } from '../../utils/firebaseUtils';
 import CalendarList from './CalendarList/CalendarList';
 import Button from '../../components/Button';
@@ -27,7 +27,7 @@ const Settings = ({}: Props) => {
   const createdCalendars = useAppSelector(state => state.calendar.createdCalendars);
 
   useEffect(() => {
-    fetchCalendars();
+      dispatch(onFetchAllCalendars({}));
   }, []);
 
   const onNavigateToCalendar = useCallback((id: string, name: string) => {

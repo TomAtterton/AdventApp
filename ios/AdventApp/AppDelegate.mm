@@ -8,6 +8,7 @@
 
 #import <React/RCTAppSetupUtils.h>
 #import <Firebase.h>
+#import "RNSplashScreen.h"  // here
 
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
@@ -47,6 +48,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
   [FIRApp configure];
 
+
   NSDictionary *initProps = [self prepareInitialProps];
   UIView *rootView = [self.reactDelegate createRootViewWithBridge:bridge moduleName:@"main" initialProperties:initProps];
 
@@ -59,6 +61,9 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
   [super application:application didFinishLaunchingWithOptions:launchOptions];
 
+  [RNSplashScreen show];  // here
+
+  
   return YES;
 }
 

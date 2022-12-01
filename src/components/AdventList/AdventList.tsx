@@ -9,7 +9,7 @@ import { currentDayOfMonth } from '../../utils/dateUtils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {
-  style: ViewProps;
+  style: any;
   data?: advent[];
   id?: string;
   isCreating: boolean;

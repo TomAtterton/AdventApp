@@ -4,13 +4,36 @@ import { advent } from '../config/adventConfig';
 export const calendarsCollection = firestore().collection('calendars');
 const infoCollection = firestore().collection('info');
 
-export const fetchCalendars = async () => {
-  // const calendars = await calendarsCollection.get();
-  // console.log(
-  //   'calendars',
-  //   calendars.docs.map(doc => ({ id: doc.id, ...doc.data() })),
-  // );
-  // return calendars.docs.map(doc => doc.data());
+// TODO should ideally support user specific not everything
+export const fetchAllCalendars = async () => {
+  const infoCollectionResponse = await infoCollection.get();
+  const calendarsCollectionResponse = await calendarsCollection.get();
+
+  const infoData = infoCollectionResponse.docs.map(doc => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+    };
+  });
+
+  const calendarData = calendarsCollectionResponse.docs.map(doc => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      data: Object.values(data),
+    };
+  });
+
+  const updatedCalendarData = calendarData.map(calendar => {
+    const calendarInfo = infoData.find(info => info.id === calendar.id);
+    return {
+      name: calendarInfo?.name || '',
+      ...calendar,
+    };
+  });
+
+  return updatedCalendarData;
 };
 
 const arrayToObject = <T extends Record<K, any>, K extends keyof any>(
@@ -36,7 +59,6 @@ export const addCalendar = async ({
     // console.log('adventObject', adventObject);
     await calendarsCollection.doc(id).set(adventObject);
     await infoCollection.doc(id).set({ name });
-
   } catch (e) {
     console.log('error something went wrong', e);
   }

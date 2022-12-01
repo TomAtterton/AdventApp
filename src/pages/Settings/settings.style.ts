@@ -4,7 +4,7 @@ import { colors } from '../../themes';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: '#39476a',
     alignItems: 'center',
   },
   title: {

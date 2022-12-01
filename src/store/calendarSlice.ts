@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { advent, defaultAdvent, emptyAdvent } from '../config/adventConfig';
-import { addCalendar, updateCalendar } from '../utils/firebaseUtils';
+import { addCalendar, fetchAllCalendars, updateCalendar } from '../utils/firebaseUtils';
 
 interface CalendarState {
   currentCalendarId?: string;
@@ -19,6 +19,17 @@ const initialState: CalendarState = {
   currentCalendar: defaultAdvent,
   createdCalendars: {},
 };
+
+export const onFetchAllCalendars = createAsyncThunk('counter/onFetchAllCalendars', async arg => {
+  const calendars = await fetchAllCalendars();
+
+  if (calendars && calendars.length > 0) {
+    return calendars.reduce((obj, cur) => {
+      return { ...obj, [cur.id]: cur };
+    }, {});
+  }
+  return null;
+});
 
 export const calendarSlice = createSlice({
   name: 'counter',
@@ -61,6 +72,13 @@ export const calendarSlice = createSlice({
       state.currentCalendarId = id;
       state.currentCalendar = state.createdCalendars[id].data;
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(onFetchAllCalendars.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.createdCalendars = action.payload;
+      }
+    });
   },
 });
 
