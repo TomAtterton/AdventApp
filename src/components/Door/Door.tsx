@@ -2,7 +2,7 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import styles, { DOOR_HEIGHT, DOOR_WIDTH } from './door.style';
 import { useNavigation } from '@react-navigation/native';
-import { colors } from '../../themes';
+import { colors, images } from '../../themes';
 import Animated, {
   SharedTransition,
   useAnimatedStyle,
@@ -67,9 +67,6 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
   }, []);
 
   const onNavigate = useCallback(() => {
-
-
-
     navigation.navigate({
       name: !!id ? Pages.EDIT_DETAILS : Pages.DETAILS,
       params: { title, message, value, id, type, index, type },
@@ -101,9 +98,11 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
   //   };
   // });
 
+  const wallpaperImage = useMemo(() => images.WALLPAPER_STARS, []);
+
   return (
     <View>
-      <TouchableOpacity disabled={!isActive } style={styles.container} onPress={onDoorPress}>
+      <TouchableOpacity disabled={!isActive} style={styles.container} onPress={onDoorPress}>
         <View style={styles.innerContainer}>
           {isOpened && (
             <Animated.View
@@ -126,10 +125,10 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
           )}
         </View>
         <Animated.View style={[styles.innerLeft, animatedStyleLeft]}>
-          <Image source={require('../../assets/test2.png')} style={styles.innerContentLeft} />
+          <Image source={wallpaperImage} style={styles.innerContentLeft} />
         </Animated.View>
         <Animated.View style={[styles.innerRight, animatedStyleRight]}>
-          <Image source={require('../../assets/test2.png')} style={styles.innerContentRight} />
+          <Image source={wallpaperImage} style={styles.innerContentRight} />
         </Animated.View>
         {!isOpened && <Text style={styles.title}>{title}</Text>}
         {!isActive && <View style={styles.overlay} />}

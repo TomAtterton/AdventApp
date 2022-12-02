@@ -14,6 +14,9 @@ import cat_13 from '../assets/images/advent/cat_13.png';
 import cat_14 from '../assets/images/advent/cat_14.png';
 import cat_15 from '../assets/images/advent/cat_15.png';
 import cat_16 from '../assets/images/advent/cat_16.png';
+import wallpaper_stars from '../assets/images/wallpaper_stars.png';
+import wallpaper_tree from '../assets/images/wallpaper_tree.png';
+import wallpaper_random from '../assets/images/wallpaper_random.jpg';
 
 export default {
   ADVENT_CAT_1: cat_1,
@@ -32,4 +35,7 @@ export default {
   ADVENT_CAT_14: cat_14,
   ADVENT_CAT_15: cat_15,
   ADVENT_CAT_16: cat_16,
+  WALLPAPER_STARS: wallpaper_stars,
+  WALLPAPER_TREE: wallpaper_tree,
+  WALLPAPER_RANDOM: wallpaper_random,
 };

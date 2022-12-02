@@ -1,6 +1,16 @@
 import React, { memo, useCallback, useMemo, useEffect, useState } from 'react';
 import styles from './editDetails.style';
-import { Dimensions, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BlurView } from 'expo-blur';
 import { GiphyDialog, GiphyDialogEvent, GiphyMedia } from '@giphy/react-native-sdk';
@@ -113,56 +123,65 @@ const EditDetails = ({
   }, [media?.url, type]);
 
   return (
-    <View style={styles.container}>
-      {showPreview && media ? (
-        <View style={styles.container}>
-          <Image style={styles.image} source={imageSource} />
-          <BlurView style={styles.messageContainer}>
-            <Text style={styles.message}>{text}</Text>
-          </BlurView>
-          <TouchableOpacity
-            style={{ top: top + 16, position: 'absolute', right: 16 }}
-            onPress={() => setShowPreview(false)}>
-            <Ionicons name="close" size={32} color="white" />
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <>
-          {media ? (
-            <View style={{ flex: 1, paddingTop: top + 80, marginHorizontal: 24 }}>
-              <Image
-                style={{
-                  alignSelf: 'center',
-                  height: metrics.screenHeight / 3,
-                  width: metrics.screenWidth / 1.5,
-                }}
-                source={imageSource}
-              />
-              <ContentButton title={'Remove Content'} onPress={onRemove} />
-              <Text>Add message </Text>
-              <TextInput
-                style={{ backgroundColor: 'white', height: 40, paddingLeft: 8 }}
-                value={text}
-                onChangeText={onChangeText}
-              />
-              <ContentButton title={'Show Preview'} onPress={() => setShowPreview(true)} />
-              <ContentButton title={'Save'} onPress={onSave} />
-            </View>
-          ) : (
-            <View style={{ flex: 1, justifyContent: 'center', marginHorizontal: 24 }}>
-              {/*<ContentButton title={'Choose Image'} onPress={onChooseImage} />*/}
-              <ContentButton title={'Select Gif'} onPress={GiphyDialog.show} />
-            </View>
-          )}
-          <Button
-            style={{ top: top, position: 'absolute', left: 16 }}
-            onPress={() => navigation.goBack()}>
-            <Ionicons name="chevron-back" size={32} color="white" />
-          </Button>
-        </>
-      )}
-    </View>
+      <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}
+      >
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.container}
+    >
+        {showPreview && media ? (
+          <View style={styles.container}>
+            <Image style={styles.image} source={imageSource} />
+            <BlurView style={styles.messageContainer}>
+              <Text style={styles.message}>{text}</Text>
+            </BlurView>
+            <TouchableOpacity
+              style={{ top: top + 16, position: 'absolute', right: 16 }}
+              onPress={() => setShowPreview(false)}>
+              <Ionicons name="close" size={32} color="white" />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <>
+            {media ? (
+              <View style={{ flex: 1, paddingTop: top + 80, marginHorizontal: 24 }}>
+                <Image
+                  style={{
+                    alignSelf: 'center',
+                    height: metrics.screenHeight / 3,
+                    width: metrics.screenWidth / 1.5,
+                  }}
+                  source={imageSource}
+                />
+                <ContentButton title={'Remove Content'} onPress={onRemove} />
+                <Text>Add message </Text>
+                <TextInput
+                  style={{ backgroundColor: 'white', height: 40, paddingLeft: 8 }}
+                  value={text}
+                  onChangeText={onChangeText}
+                />
+                <ContentButton title={'Show Preview'} onPress={() => setShowPreview(true)} />
+                <ContentButton title={'Save'} onPress={onSave} />
+              </View>
+            ) : (
+              <View style={{ flex: 1, justifyContent: 'center', marginHorizontal: 24 }}>
+                {/*<ContentButton title={'Choose Image'} onPress={onChooseImage} />*/}
+                <ContentButton title={'Select Gif'} onPress={GiphyDialog.show} />
+              </View>
+            )}
+            <Button
+              style={{ top: top, position: 'absolute', left: 16 }}
+              onPress={() => navigation.goBack()}>
+              <Ionicons name="chevron-back" size={32} color="white" />
+            </Button>
+          </>
+        )}
+    </ScrollView>
+      </KeyboardAvoidingView>
   );
 };
+
 
 export default memo(EditDetails);
