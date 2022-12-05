@@ -7,9 +7,39 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: colors.pink,
   },
+  starterContainer: {
+    flex: 1,
+    backgroundColor: colors.pink,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  balls: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 250,
+  },
   title: {
     color: colors.white,
     fontSize: 40,
+  },
+  gradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+    borderRadius: 20,
+  },
+  image: {
+    backgroundColor: colors.black,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    resizeMode: 'contain',
   },
   messageContainer: {
     overflow: 'hidden',
@@ -28,10 +58,6 @@ export default StyleSheet.create({
     color: colors.white,
     fontSize: 35,
   },
-  image: {
-    borderRadius: 20,
-    height: metrics.screenHeight / 1.5,
-    width: '100%',
-    backgroundColor: colors.black,
-  },
+  swipeButton: { position: 'absolute', bottom: 60 },
+  closeButton: { position: 'absolute', right: 16 },
 });
