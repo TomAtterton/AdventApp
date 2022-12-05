@@ -13,9 +13,15 @@ export default StyleSheet.create({
     position: 'absolute',
   },
   bird: {
-    bottom:20,
+    top: 40,
     position: 'absolute',
     height: 200,
+  },
+  cat: {
+    bottom: 0,
+    width: 250,
+    height: 600,
+    position: 'absolute',
   },
   headerImage: {
     height: 200,

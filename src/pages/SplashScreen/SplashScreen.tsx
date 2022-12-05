@@ -4,6 +4,7 @@ import LottieView from 'lottie-react-native';
 import Animations from '../../themes/animations';
 import styles from './splashScreen.style';
 import { colors } from '../../themes';
+import fonts from '../../themes/fonts';
 
 const Splashscreen = () => (
   <View style={styles.container}>
@@ -14,12 +15,22 @@ const Splashscreen = () => (
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: 40,
         paddingVertical: 20,
       }}>
-      <Text style={{ textAlign: 'center', fontSize: 40, color: 'white' }}>{'Advent\nApp'}</Text>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 50,
+          color: 'white',
+          fontFamily: fonts.CHRISTMAS_BOLD,
+        }}>
+        {'Advent\nApp'}
+      </Text>
     </View>
     <LottieView style={styles.bird} source={Animations.BIRD} autoPlay loop />
+
+    <LottieView style={styles.cat} source={Animations.POKING_CAT} autoPlay />
   </View>
 );
 export default Splashscreen;

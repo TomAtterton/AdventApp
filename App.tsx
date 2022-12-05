@@ -20,7 +20,7 @@ export default function App() {
     SplashScreenAPI.hide();
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 2500);
   }, []);
 
   return (
