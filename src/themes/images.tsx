@@ -17,6 +17,10 @@ import cat_16 from '../assets/images/advent/cat_16.png';
 import wallpaper_stars from '../assets/images/wallpaper_stars.png';
 import wallpaper_tree from '../assets/images/wallpaper_tree.png';
 import wallpaper_random from '../assets/images/wallpaper_random.jpg';
+import dayHouse from '../assets/images/day-house.png';
+import snowChurch from '../assets/images/snow_church.jpg';
+import nightMountain from '../assets/images/night_mountain.png';
+import nightLake from '../assets/images/night_lake.jpg';
 
 export default {
   ADVENT_CAT_1: cat_1,
@@ -38,4 +42,8 @@ export default {
   WALLPAPER_STARS: wallpaper_stars,
   WALLPAPER_TREE: wallpaper_tree,
   WALLPAPER_RANDOM: wallpaper_random,
+  BACKGROUND_MORNING: dayHouse,
+  BACKGROUND_DAY: snowChurch,
+  BACKGROUND_AFTERNOON: nightLake,
+  BACKGROUND_EVENING: nightMountain,
 };
