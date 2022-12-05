@@ -68,7 +68,7 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
 
   const onNavigate = useCallback(() => {
     navigation.navigate({
-      name: !!id ? Pages.EDIT_DETAILS : Pages.DETAILS,
+      name: id ? Pages.EDIT_DETAILS : Pages.DETAILS,
       params: { title, message, value, id, type, index, type },
     });
   }, [index, navigation, title, id, message, value, type]);
@@ -105,10 +105,7 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
       <TouchableOpacity disabled={!isActive} style={styles.container} onPress={onDoorPress}>
         <View style={styles.innerContainer}>
           {isOpened && (
-            <Animated.View
-              sharedTransitionTag={`door-${index}`}
-              // sharedTransitionStyle={transition}
-              style={styles.temp}>
+            <Animated.View sharedTransitionTag={`door-${index}`} style={styles.temp}>
               <LinearGradient
                 style={{
                   position: 'absolute',
@@ -118,7 +115,7 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
                   top: 0,
                   borderRadius: 20,
                 }}
-                colors={['#FFFFFF', '#FFC9E2', '#FFC9E2', '#FF4568']}
+                colors={colors.pinkRadiant}
               />
               <IconComponent value={index} />
             </Animated.View>

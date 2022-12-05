@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import metrics from '../../themes/metrics';
-import { colors } from '../../themes';
+import { colors, shadow } from '../../themes';
 import fonts from '../../themes/fonts';
 
 const DOOR_MARGIN = 32;
@@ -9,13 +9,7 @@ export const DOOR_WIDTH = metrics.screenWidth / 2 - DOOR_MARGIN * 2;
 
 export default StyleSheet.create({
   container: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.46,
-    shadowRadius: 11.14,
+    ...shadow,
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
     margin: DOOR_MARGIN,
@@ -32,17 +26,17 @@ export default StyleSheet.create({
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
   },
+  // TODO this shouldn't be here
   temp: {
     borderRadius: 20,
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
-    // backgroundColor: '#FFC9E2',
     justifyContent: 'center',
     alignItems: 'center',
   },
   tempTitle: {
     fontSize: 50,
-    color: 'white',
+    color: colors.white,
     textAlign: 'center',
   },
   tintView: {
@@ -96,16 +90,8 @@ export default StyleSheet.create({
     fontFamily: fonts.CHRISTMAS_BOLD,
     position: 'absolute',
     left: 16,
-    //TODO why
-    // top: -10,
     fontSize: 60,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.46,
-    shadowRadius: 11.14,
+    ...shadow,
     color: 'white',
     textAlign: 'center',
   },
@@ -124,6 +110,6 @@ export default StyleSheet.create({
     height: 30,
     borderRadius: 20,
     width: 30,
-    backgroundColor: 'black',
+    backgroundColor: colors.black,
   },
 });

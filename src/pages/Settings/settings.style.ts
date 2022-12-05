@@ -4,11 +4,11 @@ import { colors } from '../../themes';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#39476a',
+    backgroundColor: colors.settings,
     alignItems: 'center',
   },
   title: {
-    color: 'white',
+    color: colors.white,
     fontSize: 40,
     paddingTop: 16,
   },
