@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles, { BUTTON_HEIGHT } from './home.style';
 import AdventList from '../../components/AdventList/AdventList';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -7,17 +7,43 @@ import { defaultAdvent } from '../../config/adventConfig';
 import { Image, StatusBar, View } from 'react-native';
 import { BlurView } from 'expo-blur';
 import Button from '../../components/Button';
-import Pages from '../../enum/Pages';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import SnowFall from '../../components/SnowFall/SnowFall';
 import { images } from '../../themes';
+import notifee, { RepeatFrequency, TimestampTrigger, TriggerType } from '@notifee/react-native';
 
 const Home = ({}) => {
   const currentCalendar = useAppSelector(state => state.calendar.currentCalendar || defaultAdvent);
   const { top } = useSafeAreaInsets();
-  const { navigate } = useNavigation();
-  const onNavigateToSettings = () => navigate({ name: Pages.SETTINGS });
+  const onNavigateToSettings = async () => {};
+
+  // TODO - this is a hack to get the notification to show up on iOS
+  useEffect(() => {
+    const setNotification = async () => {
+      await notifee.requestPermission();
+      const date = new Date();
+      date.setDate(date.getDate() + 1);
+      date.setHours(10);
+      date.setMinutes(0);
+
+      const trigger: TimestampTrigger = {
+        type: TriggerType.TIMESTAMP,
+        timestamp: date.getTime(),
+        repeatFrequency: RepeatFrequency.DAILY,
+      };
+
+      notifee.createTriggerNotification(
+        {
+          title: 'Advent Calendar',
+          body: 'Open the app to see what is behind the door',
+        },
+        trigger,
+      );
+    };
+
+    setNotification();
+  }, []);
 
   const adventListTopPadding = top + BUTTON_HEIGHT;
   const [image, setImage] = useState(images.BACKGROUND_EVENING);
@@ -42,6 +68,7 @@ const Home = ({}) => {
     <View style={[styles.container, { paddingTop: 0 }]}>
       <StatusBar barStyle={'light-content'} />
       <Image source={image} style={styles.backgroundImage} />
+
       <BlurView tint={'dark'} intensity={20} style={styles.blurView} />
       <SnowFall />
       <Button style={[styles.settingsButton, { top: top }]} onPress={onNavigateToSettings}>
