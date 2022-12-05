@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, StyleSheet, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -15,12 +15,8 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import { useState } from 'react';
-import fonts from "../themes/fonts";
-
-const BUTTON_WIDTH = Dimensions.get('window').width * 0.8;
-const BUTTON_HEIGHT = 50;
-const BUTTON_PADDING = 10;
-const SWIPEABLE_DIMENSIONS = BUTTON_HEIGHT - 2 * BUTTON_PADDING;
+import styles, { BUTTON_PADDING, BUTTON_WIDTH, SWIPEABLE_DIMENSIONS } from './swipeButton.style';
+import { colors } from '../../themes';
 
 const H_WAVE_RANGE = SWIPEABLE_DIMENSIONS + 2 * BUTTON_PADDING;
 const H_SWIPE_RANGE = BUTTON_WIDTH - 2 * BUTTON_PADDING - SWIPEABLE_DIMENSIONS;
@@ -28,17 +24,19 @@ const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
 interface Props {
   style: ViewStyle;
-  onToggle: () => void;
+  onToggle: (isToggled: boolean) => void;
 }
 
 const SwipeButton = ({ style, onToggle }: Props) => {
+  const mainColor = colors.blue;
+
   // Animated value for X translation
   const X = useSharedValue(0);
   // Toggled State
   const [toggled, setToggled] = useState(false);
 
   // Fires when animation ends
-  const handleComplete = isToggled => {
+  const handleComplete = (isToggled: boolean) => {
     if (isToggled !== toggled) {
       setToggled(isToggled);
       onToggle(isToggled);
@@ -89,8 +87,8 @@ const SwipeButton = ({ style, onToggle }: Props) => {
       return {
         backgroundColor: interpolateColor(
           X.value,
-          [0, BUTTON_WIDTH - (SWIPEABLE_DIMENSIONS * 3) - BUTTON_PADDING],
-          ['#001E85', '#fff'],
+          [0, BUTTON_WIDTH - SWIPEABLE_DIMENSIONS * 3 - BUTTON_PADDING],
+          [mainColor, colors.white],
         ),
         transform: [{ translateX: X.value }],
       };
@@ -103,7 +101,7 @@ const SwipeButton = ({ style, onToggle }: Props) => {
             translateX: interpolate(
               X.value,
               InterpolateXInput,
-              [0, BUTTON_WIDTH / 2 - (SWIPEABLE_DIMENSIONS *3)],
+              [0, BUTTON_WIDTH / 2 - SWIPEABLE_DIMENSIONS * 3],
               Extrapolate.CLAMP,
             ),
           },
@@ -116,54 +114,18 @@ const SwipeButton = ({ style, onToggle }: Props) => {
     <Animated.View style={[styles.swipeCont, AnimatedStyles.swipeCont, style]}>
       <AnimatedLinearGradient
         style={[AnimatedStyles.colorWave, styles.colorWave]}
-        colors={['#06d6a0', '#001E85']}
+        colors={colors.blueGradient}
         start={{ x: 0.0, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}
       />
       <PanGestureHandler onGestureEvent={animatedGestureHandler}>
         <Animated.View style={[styles.swipeable, AnimatedStyles.swipeable]} />
       </PanGestureHandler>
-      <Animated.Text style={[styles.swipeText, AnimatedStyles.swipeText]}>
+      <Animated.Text style={[styles.swipeText, AnimatedStyles.swipeText, { color: mainColor }]}>
         Swipe To Unlock
       </Animated.Text>
     </Animated.View>
   );
 };
-
-const styles = StyleSheet.create({
-  swipeCont: {
-    height: BUTTON_HEIGHT,
-    width: BUTTON_WIDTH,
-    backgroundColor: '#fff',
-    borderRadius: BUTTON_HEIGHT,
-    padding: BUTTON_PADDING,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  colorWave: {
-    position: 'absolute',
-    left: 0,
-    height: BUTTON_HEIGHT,
-    borderRadius: BUTTON_HEIGHT,
-  },
-  swipeable: {
-    position: 'absolute',
-    left: BUTTON_PADDING,
-    height: SWIPEABLE_DIMENSIONS,
-    width: SWIPEABLE_DIMENSIONS,
-    borderRadius: SWIPEABLE_DIMENSIONS,
-    zIndex: 3,
-  },
-  swipeText: {
-    fontFamily: fonts.CHRISTMAS_BOLD,
-    alignSelf: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    zIndex: 2,
-    color: '#001E85',
-  },
-});
 
 export default SwipeButton;

@@ -1,14 +1,9 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import styles, { DOOR_HEIGHT, DOOR_WIDTH } from './door.style';
+import styles, { DOOR_WIDTH } from './door.style';
 import { useNavigation } from '@react-navigation/native';
 import { colors, images } from '../../themes';
-import Animated, {
-  SharedTransition,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import Pages from '../../enum/Pages';
 import IconComponent from '../IconComponent';
 import LinearGradient from 'react-native-linear-gradient';
@@ -100,7 +95,7 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
         <View style={styles.innerContainer}>
           {isOpened && (
             <Animated.View sharedTransitionTag={`door-${index}`} style={styles.innerDoor}>
-              <LinearGradient style={styles.gradientBackground} colors={colors.pinkRadiant} />
+              <LinearGradient style={styles.gradientBackground} colors={colors.pinkGradient} />
               <IconComponent value={index} />
             </Animated.View>
           )}

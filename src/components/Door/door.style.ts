@@ -27,6 +27,9 @@ export default StyleSheet.create({
     width: DOOR_WIDTH,
   },
   gradientBackground: {
+    // opacity: 0.8,
+    height: DOOR_HEIGHT,
+    width: DOOR_WIDTH,
     position: 'absolute',
     left: 0,
     right: 0,
