@@ -26,8 +26,16 @@ export default StyleSheet.create({
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,
   },
-  // TODO this shouldn't be here
-  temp: {
+  gradientBackground: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+    borderRadius: 20,
+  },
+
+  innerDoor: {
     borderRadius: 20,
     height: DOOR_HEIGHT,
     width: DOOR_WIDTH,

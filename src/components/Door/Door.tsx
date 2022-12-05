@@ -26,13 +26,15 @@ interface Props {
 
 import * as Haptics from 'expo-haptics';
 
-const colorArray = [colors.advent4, colors.advent1, colors.advent2, colors.advent3];
+// TODO replace with different gradients
+// const colorArray = [colors.advent4, colors.advent1, colors.advent2, colors.advent3];
 
 const Door = ({ title, message, value, index, isActive, id, type, isCreating }: Props) => {
   const navigation = useNavigation();
 
   const [isOpened, setIsOpened] = useState(false);
-  const backgroundColor = useMemo(() => colorArray[index % 4], [index]);
+  // TODO support multiple colors
+  // const backgroundColor = useMemo(() => colorArray[index % 4], [index]);
 
   const translateX = useSharedValue(0);
 
@@ -61,10 +63,13 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
     };
   }, []);
 
-  const onAnimateDoor = useCallback((isOpen: boolean) => {
-    translateX.value = withTiming(isOpen ? 0 : 100, { duration: 1000 });
-    setIsOpened(!isOpen);
-  }, []);
+  const onAnimateDoor = useCallback(
+    (isOpen: boolean) => {
+      translateX.value = withTiming(isOpen ? 0 : 100, { duration: 1000 });
+      setIsOpened(!isOpen);
+    },
+    [translateX],
+  );
 
   const onNavigate = useCallback(() => {
     navigation.navigate({
@@ -82,21 +87,10 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
     }
 
     onAnimateDoor(false);
-    // translateX.value = withTiming(isOpened ? 0 : 100, { duration: 1000 });
     setTimeout(() => {
       onNavigate();
     }, 1000);
-  }, [isOpened, onAnimateDoor, onNavigate]);
-
-  // const transition = SharedTransition.custom((values: any) => {
-  //   'worklet';
-  //   return {
-  //     height: withTiming(values.targetHeight, { duration: 1000 }),
-  //     width: withTiming(values.targetWidth, { duration: 1000 }),
-  //     originX: withTiming(values.targetOriginX, { duration: 1000 }),
-  //     originY: withTiming(values.targetOriginY, { duration: 1000 }),
-  //   };
-  // });
+  }, [isCreating, isOpened, onAnimateDoor, onNavigate]);
 
   const wallpaperImage = useMemo(() => images.WALLPAPER_STARS, []);
 
@@ -105,18 +99,8 @@ const Door = ({ title, message, value, index, isActive, id, type, isCreating }: 
       <TouchableOpacity disabled={!isActive} style={styles.container} onPress={onDoorPress}>
         <View style={styles.innerContainer}>
           {isOpened && (
-            <Animated.View sharedTransitionTag={`door-${index}`} style={styles.temp}>
-              <LinearGradient
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  top: 0,
-                  borderRadius: 20,
-                }}
-                colors={colors.pinkRadiant}
-              />
+            <Animated.View sharedTransitionTag={`door-${index}`} style={styles.innerDoor}>
+              <LinearGradient style={styles.gradientBackground} colors={colors.pinkRadiant} />
               <IconComponent value={index} />
             </Animated.View>
           )}

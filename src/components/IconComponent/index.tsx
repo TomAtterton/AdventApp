@@ -2,6 +2,7 @@ import React, { memo, useMemo } from 'react';
 import { AdventImages } from '../../utils/adventUtils';
 import { DOOR_HEIGHT, DOOR_WIDTH } from '../Door/door.style';
 import Animated, { SharedTransition, withTiming } from 'react-native-reanimated';
+import { StyleProp } from 'react-native';
 
 const IconComponent = ({
   style,
@@ -9,7 +10,7 @@ const IconComponent = ({
   width = DOOR_WIDTH / 2,
   value,
 }: {
-  style: any;
+  style?: StyleProp<any>;
   height?: number;
   width?: number;
   value: number;
@@ -26,7 +27,7 @@ const IconComponent = ({
   });
   return (
     <Animated.Image
-      style={[{ height, width }, style]}
+      style={[{ height, width, overflow: 'visible' }, style]}
       source={imageSource}
       sharedTransitionStyle={transition}
       sharedTransitionTag={`icon-door-${value}`}
