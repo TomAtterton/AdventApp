@@ -14,6 +14,6 @@ const colors = {
   pink: '#FFC9E2',
   blue: '#001E85',
   pinkGradient: ['#FFFFFF', '#FFC9E2', '#FFC9E2', '#FF4568'],
-  blueGradient: ['#FFFFFF', '#7064af', '#7064af', '#001E85'],
+  blueGradient: ['#06d6a0', '#001E85'],
 };
 export default colors;

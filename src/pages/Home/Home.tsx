@@ -8,15 +8,17 @@ import { Image, StatusBar, View } from 'react-native';
 import { BlurView } from 'expo-blur';
 import Button from '../../components/Button';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import SnowFall from '../../components/SnowFall/SnowFall';
 import { images } from '../../themes';
 import notifee, { RepeatFrequency, TimestampTrigger, TriggerType } from '@notifee/react-native';
+import Pages from '../../enum/Pages';
 
 const Home = ({}) => {
   const currentCalendar = useAppSelector(state => state.calendar.currentCalendar || defaultAdvent);
   const { top } = useSafeAreaInsets();
-  const onNavigateToSettings = async () => {};
+  const navigation = useNavigation();
+  const onNavigateToSettings = () => navigation.navigate({ name: Pages.SETTINGS });
 
   // TODO - this is a hack to get the notification to show up on iOS
   useEffect(() => {
@@ -71,8 +73,8 @@ const Home = ({}) => {
 
       <BlurView tint={'dark'} intensity={20} style={styles.blurView} />
       <SnowFall />
-      <Button style={[styles.settingsButton, { top: top }]} onPress={onNavigateToSettings}>
-        <Ionicons name="ios-settings-sharp" size={32} color="white" />
+      <Button style={[styles.settingsButton, { top }]} onPress={onNavigateToSettings}>
+        <Ionicons name="ios-settings-sharp" size={32} color="red" />
       </Button>
       <AdventList style={{ paddingTop: adventListTopPadding }} data={currentCalendar} />
     </View>

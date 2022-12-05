@@ -3,9 +3,8 @@ import { ViewStyle } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
-  useAnimatedGestureHandler,
   useSharedValue,
   useAnimatedStyle,
   withSpring,
@@ -43,24 +42,13 @@ const SwipeButton = ({ style, onToggle }: Props) => {
     }
   };
 
-  // Gesture Handler Events
-  const animatedGestureHandler = useAnimatedGestureHandler({
-    onStart: (_, ctx) => {
-      ctx.completed = toggled;
-    },
-    onActive: (e, ctx) => {
-      let newValue;
-      if (ctx.completed) {
-        newValue = H_SWIPE_RANGE + e.translationX;
-      } else {
-        newValue = e.translationX;
+  const panGesture = Gesture.Pan()
+    .onUpdate(e => {
+      if (e.translationX >= 0 && e.translationX <= H_SWIPE_RANGE) {
+        X.value = e.translationX;
       }
-
-      if (newValue >= 0 && newValue <= H_SWIPE_RANGE) {
-        X.value = newValue;
-      }
-    },
-    onEnd: () => {
+    })
+    .onEnd(() => {
       if (X.value < BUTTON_WIDTH / 2 - SWIPEABLE_DIMENSIONS / 2) {
         X.value = withSpring(0);
         runOnJS(handleComplete)(false);
@@ -68,8 +56,7 @@ const SwipeButton = ({ style, onToggle }: Props) => {
         X.value = withSpring(H_SWIPE_RANGE);
         runOnJS(handleComplete)(true);
       }
-    },
-  });
+    });
 
   const InterpolateXInput = [0, H_SWIPE_RANGE];
   const AnimatedStyles = {
@@ -118,9 +105,9 @@ const SwipeButton = ({ style, onToggle }: Props) => {
         start={{ x: 0.0, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}
       />
-      <PanGestureHandler onGestureEvent={animatedGestureHandler}>
+      <GestureDetector gesture={panGesture}>
         <Animated.View style={[styles.swipeable, AnimatedStyles.swipeable]} />
-      </PanGestureHandler>
+      </GestureDetector>
       <Animated.Text style={[styles.swipeText, AnimatedStyles.swipeText, { color: mainColor }]}>
         Swipe To Unlock
       </Animated.Text>

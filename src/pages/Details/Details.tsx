@@ -74,7 +74,7 @@ const Details = ({
           sharedTransitionTag={`door-${index}`}>
           <LinearGradient style={styles.gradient} colors={colors.pinkGradient} />
           <Animated.View style={styles.balls} entering={FadeIn.delay(500).duration(1000)}>
-            <LottieView autoPlay={true} source={Animations.BALL_BALLS} />
+            <LottieView autoPlay={true} source={Animations.BALL_BALLS} loop={false} />
           </Animated.View>
 
           <IconComponent height={200} width={200} value={index} />

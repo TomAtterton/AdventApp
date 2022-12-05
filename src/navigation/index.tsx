@@ -34,7 +34,7 @@ const MainNavigation = () => {
           headerRight: navigation => {
             console.log('navigation', navigation);
             return (
-              <Button onPress={() => navigate({ name: Pages.SETTINGS })}>
+              <Button onPress={() => §}>
                 <Ionicons name="ios-settings-sharp" size={32} color="white" />
               </Button>
             );
