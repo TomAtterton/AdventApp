@@ -34,7 +34,7 @@ const MainNavigation = () => {
           headerRight: navigation => {
             console.log('navigation', navigation);
             return (
-              <Button onPress={() => §}>
+              <Button onPress={() => {}}>
                 <Ionicons name="ios-settings-sharp" size={32} color="white" />
               </Button>
             );
@@ -52,7 +52,7 @@ const MainNavigation = () => {
       <Stack.Screen
         name={Pages.EDIT_DETAILS}
         component={routes[Pages.EDIT_DETAILS]}
-        options={{ ...defaultOptions}}
+        options={{ ...defaultOptions }}
       />
       <Stack.Screen
         name={Pages.SETTINGS}
